@@ -4,15 +4,96 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="icon" href="images/favicon.ico">
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+
 </head>
-<body>
-  <header>
+<body class="background-color">
+  <header class="white-background">
+    <div class="container ">
+      <div class="row header-row-padding align-items-center justify-space-between">
+        <div class="column-flex">
+          <h1 class="logo-formatting">PIGMENT</h1>
+        </div>
+        <div class="column-flex">
+          <i class="fa-solid fa-plus plus-sign"></i>
+          <a class="new-styling" href="#">New</a>
+        </div>
+      </div>
+    </div>
   </header>
   <main>
+    <div class="container">
+
+      <div data-view="new-project-form">
+        <form action="">
+          <div class="row">
+            <div class="column-full">
+              <h1 class="new-project-styling">NEW PROJECT</h1>
+            </div>
+          </div>
+          <div class="row form-margin-bottom">
+            <div class="column-full">
+              <input required class="form-fields" type="text" name="project-name" id="project-name"
+              placeholder="Project Name">
+            </div>
+          </div>
+          <div class="row form-margin-bottom">
+            <div class="column-full">
+              <textarea required class="form-fields" name="project-details"
+              id="project-details" placeholder="Project Details"></textarea>
+            </div>
+          </div>
+          <div class="row form-margin-bottom">
+            <div class="column-flex">
+              <input required class="form-fields" type="text" name="project-deadline"
+              id="project-deadline" placeholder="Project Deadline         &#8964;"
+              onfocus="(this.type='date')" onblur="(this.type='text')">
+            </div>
+          </div>
+          <div class="row small-margin justify-space-between">
+            <div class="column-flex">
+              <p class="color-palette-header">Color Palette</p>
+              <p class="palette-name">Name: Walking On Air</p>
+            </div>
+            <div class="column-flex">
+              <button class="new-palette-button">NEW PALETTE</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="column-one-fifth palette-height palette-one"></div>
+            <div class="column-one-fifth palette-height palette-two"></div>
+            <div class="column-one-fifth palette-height palette-three"></div>
+            <div class="column-one-fifth palette-height palette-four"></div>
+            <div class="column-one-fifth palette-height palette-five"></div>
+          </div>
+          <div class="row small-margin">
+            <div class="column-one-fifth hex-code text-align-center">1234</div>
+            <div class="column-one-fifth hex-code text-align-center">4563</div>
+            <div class="column-one-fifth hex-code text-align-center">0123</div>
+            <div class="column-one-fifth hex-code text-align-center">9875</div>
+            <div class="column-one-fifth hex-code text-align-center">3265</div>
+          </div>
+          <div class="row form-margin-bottom">
+            <div class="column-full palette-height palette-gradient"></div>
+          </div>
+          <div class="row form-margin-bottom justify-end">
+            <div class="column-flex">
+              <button class="save-button">SAVE</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>

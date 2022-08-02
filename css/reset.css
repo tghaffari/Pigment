@@ -5,3 +5,39 @@
 body {
   margin: 0;
 }
+
+a {
+  text-decoration: none;
+}
+
+.palette-one {
+  background-color: aliceblue;
+}
+
+.palette-two {
+  background-color: rgb(236, 111, 192);
+}
+
+.palette-three {
+  background-color: lime;
+}
+
+.palette-four {
+  background-color: yellow;
+}
+
+.palette-five {
+  background-color: lightcoral;
+}
+
+.palette-gradient {
+  background:
+    linear-gradient(
+      0.25turn,
+      rgba(240, 248, 255) 15%,
+      rgba(236, 111, 192, 0.9) 25% 35%,
+      rgba(0, 255, 0, 0.8) 45% 55%,
+      rgba(255, 255, 0, 0.8) 65% 75%,
+      lightcoral 90%
+    );
+}

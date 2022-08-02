@@ -1,0 +1,156 @@
+.background-color {
+  background-color: #f6fbf4;
+}
+
+.white-background {
+  background-color: white;
+  filter: drop-shadow(0 2px 10px rgba(0 0 0 / 0.14));
+}
+
+.header-row-padding {
+  padding: 10px 0;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.logo-formatting {
+  font-family: Overpass, sans-serif;
+  font-size: 28px;
+  color: #68b0ab;
+  font-weight: 200;
+  letter-spacing: 2px;
+  margin: 0;
+}
+
+.plus-sign {
+  color: #68b0ab;
+  font-size: 16px;
+}
+
+.new-styling {
+  font-family: Inter, sans-serif;
+  color: #68b0ab;
+  font-size: 16px;
+  font-weight: 200;
+}
+
+.new-project-styling {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 28px;
+  letter-spacing: 2.5px;
+  color: #03322f;
+  text-align: center;
+  font-weight: lighter;
+}
+
+.form-fields {
+  background-color: rgba(189, 219, 217, 0.5);
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  color: #03322f;
+  border-style: solid;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: solid #03322f;
+  border-radius: 4px 4px 0 0;
+  border-width: 1px;
+}
+
+#project-name {
+  width: 100%;
+  height: 30px;
+}
+
+#project-details {
+  width: 100%;
+  height: 50px;
+}
+
+#project-deadline {
+  width: 100%;
+  height: 30px;
+}
+
+.form-margin-bottom {
+  margin-bottom: 25px;
+}
+
+.form-fields:focus {
+  outline: none;
+  border-color: #38efe3;
+}
+
+a:hover,
+new-palette-button:hover,
+save-button:hover {
+  cursor: pointer;
+}
+
+.color-palette-header {
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  color: #03322f;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.palette-name {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  color: #03322f;
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.new-palette-button {
+  background-color: rgb(189, 219, 217);
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  color: #03322f;
+  border-radius: 2px;
+  border: none;
+  width: 100px;
+  height: 25px;
+}
+
+.small-margin {
+  margin-bottom: 10px;
+}
+
+.palette-height {
+  height: 90px;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.hex-code {
+  font-family: Inter, sans-serif;
+  font-size: 12px;
+  color: #03322f;
+  margin-top: 2px;
+}
+
+.justify-end {
+  justify-content: end;
+}
+
+.save-button {
+  background-color: #03322f;
+  color: white;
+  font-family: Inter, sans-serif;
+  font-size: 14px;
+  border-radius: 2px;
+  border: none;
+  height: 30px;
+  width: 60px;
+  margin-top: 15px;
+}
