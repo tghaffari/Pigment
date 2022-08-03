@@ -35,7 +35,7 @@
     <div class="container">
 
       <div data-view="new-project-form">
-        <form action="">
+        <form action="" id="new-project-form">
           <div class="row">
             <div class="column-full">
               <h1 class="new-project-styling">NEW PROJECT</h1>
@@ -43,45 +43,40 @@
           </div>
           <div class="row form-margin-bottom">
             <div class="column-full">
-              <input required class="form-fields" type="text" name="project-name" id="project-name"
+              <input required class="form-fields" type="text" name="projectName" id="project-name"
               placeholder="Project Name">
             </div>
           </div>
           <div class="row form-margin-bottom">
             <div class="column-full">
-              <textarea required class="form-fields" name="project-details"
+              <textarea required class="form-fields" name="projectDetails"
               id="project-details" placeholder="Project Details"></textarea>
             </div>
           </div>
           <div class="row form-margin-bottom">
             <div class="column-flex">
-              <input required class="form-fields" type="text" name="project-deadline"
-              id="project-deadline" placeholder="Project Deadline         &#8964;"
+              <input required class="form-fields" type="text" name="projectDeadline"
+              id="project-deadline" placeholder="Project Deadline"
               onfocus="(this.type='date')" onblur="(this.type='text')">
             </div>
           </div>
           <div class="row small-margin justify-space-between">
             <div class="column-flex">
               <p class="color-palette-header">Color Palette</p>
-              <p class="palette-name">Name: Walking On Air</p>
             </div>
             <div class="column-flex">
               <button class="new-palette-button">NEW PALETTE</button>
             </div>
           </div>
           <div class="row">
-            <div class="column-one-fifth palette-height palette-one"></div>
-            <div class="column-one-fifth palette-height palette-two"></div>
-            <div class="column-one-fifth palette-height palette-three"></div>
-            <div class="column-one-fifth palette-height palette-four"></div>
-            <div class="column-one-fifth palette-height palette-five"></div>
+            <div class="column-full palette-height color-palette"></div>
           </div>
           <div class="row small-margin">
-            <div class="column-one-fifth hex-code text-align-center">1234</div>
-            <div class="column-one-fifth hex-code text-align-center">4563</div>
-            <div class="column-one-fifth hex-code text-align-center">0123</div>
-            <div class="column-one-fifth hex-code text-align-center">9875</div>
-            <div class="column-one-fifth hex-code text-align-center">3265</div>
+            <div class="column-one-fifth rgb-code text-align-center" data-id="1"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-id="2"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-id="3"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-id="4"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-id="5"></div>
           </div>
           <div class="row form-margin-bottom">
             <div class="column-full palette-height palette-gradient"></div>

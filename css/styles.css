@@ -42,7 +42,7 @@
 
 .new-project-styling {
   font-family: "Bebas Neue", sans-serif;
-  font-size: 28px;
+  font-size: 30px;
   letter-spacing: 2.5px;
   color: #03322f;
   text-align: center;
@@ -87,25 +87,11 @@
   border-color: #38efe3;
 }
 
-a:hover,
-new-palette-button:hover,
-save-button:hover {
-  cursor: pointer;
-}
-
 .color-palette-header {
   font-family: Inter, sans-serif;
-  font-size: 18px;
+  font-size: 20px;
   color: #03322f;
   margin-top: 0;
-  margin-bottom: 0;
-}
-
-.palette-name {
-  font-family: Inter, sans-serif;
-  font-size: 12px;
-  color: #03322f;
-  margin-top: 5px;
   margin-bottom: 0;
 }
 
@@ -132,9 +118,9 @@ save-button:hover {
   text-align: center;
 }
 
-.hex-code {
+.rgb-code {
   font-family: Inter, sans-serif;
-  font-size: 12px;
+  font-size: 8px;
   color: #03322f;
   margin-top: 2px;
 }
@@ -150,7 +136,28 @@ save-button:hover {
   font-size: 14px;
   border-radius: 2px;
   border: none;
-  height: 30px;
-  width: 60px;
+  height: 35px;
+  width: 65px;
   margin-top: 15px;
+}
+
+a:hover,
+.new-palette-button:hover,
+.save-button:hover {
+  cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .palette-height {
+    height: 150px;
+  }
+
+  .new-palette-button {
+    width: 100px;
+    height: 30px;
+  }
+
+  .rgb-code {
+    font-size: 12px;
+  }
 }
