@@ -5,7 +5,6 @@ var $newPaletteButton = document.querySelector('.new-palette-button');
 var $projectEntryForm = document.querySelector('#new-project-form');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
-// Send a network request to generate random color palette
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
@@ -23,12 +22,7 @@ function getRandomColors() {
   xhr.open('POST', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    // eslint-disable-next-line no-console
-    console.log(xhr.status);
-    // eslint-disable-next-line no-console
-    console.log(xhr.response);
     data.randomColorPalette = xhr.response.result;
-
     setColorPalette(data.randomColorPalette);
     setRgbCodes(data.randomColorPalette);
     setGradient(data.randomColorPalette);
