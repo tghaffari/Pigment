@@ -1,0 +1,40 @@
+.hidden {
+  display: none !important;
+}
+
+.container {
+  max-width: 575px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.row {
+  display: flex;
+}
+
+.column-full,
+.column-half {
+  width: 100%;
+}
+
+.column-flex {
+  flex-basis: auto;
+}
+
+.column-one-fifth {
+  flex-basis: calc(100% / 5);
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  .column-half {
+    width: 50%;
+  }
+
+  main {
+    margin: 0 20%;
+  }
+}
