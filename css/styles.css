@@ -82,28 +82,27 @@
   margin-bottom: 25px;
 }
 
-.form-fields:focus {
-  outline: none;
-  border-color: #38efe3;
+.grow {
+  flex-grow: 0.7;
 }
 
 .color-palette-header {
   font-family: Inter, sans-serif;
-  font-size: 20px;
+  font-size: 18px;
   color: #03322f;
   margin-top: 0;
   margin-bottom: 0;
 }
 
 .new-palette-button {
-  background-color: rgb(189, 219, 217);
+  background-color: rgba(189, 219, 217, 0.5);
   font-family: Inter, sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   color: #03322f;
   border-radius: 2px;
   border: none;
-  width: 100px;
-  height: 25px;
+  width: 82px;
+  height: 31px;
 }
 
 .small-margin {
@@ -129,6 +128,23 @@
   justify-content: end;
 }
 
+.search-label {
+  padding-left: 5px;
+  padding-right: 2px;
+  border-radius: 4px 0 0;
+  font-size: 12px;
+  vertical-align: baseline;
+}
+
+#color-search {
+  background-color: rgba(189, 219, 217, 0);
+  border: none;
+  height: 30px;
+  width: 30px;
+  border-radius: 0 4px 0 0;
+  vertical-align: middle;
+}
+
 .save-button {
   background-color: #03322f;
   color: white;
@@ -143,21 +159,40 @@
 
 a:hover,
 .new-palette-button:hover,
-.save-button:hover {
+.save-button:hover,
+#color-search:hover {
   cursor: pointer;
 }
 
+.form-fields:focus {
+  outline: none;
+  border-color: #38efe3;
+}
+
 @media screen and (min-width: 768px) {
+  .color-palette-header {
+    font-size: 20px;
+  }
+
   .palette-height {
     height: 150px;
   }
 
   .new-palette-button {
-    width: 100px;
+    width: 120px;
     height: 30px;
+    font-size: 12px;
   }
 
   .rgb-code {
     font-size: 12px;
+  }
+
+  .search-label {
+    font-size: 14px;
+  }
+
+  #color-search {
+    width: 50px;
   }
 }
