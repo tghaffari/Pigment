@@ -3,7 +3,8 @@ var data = {
   view: 'new-project-form',
   entries: [],
   nextEntryId: 1,
-  randomColorPalette: []
+  colorPalette: [],
+  search: false
 };
 
 var dataJSON = localStorage.getItem('pigment-local-storage');

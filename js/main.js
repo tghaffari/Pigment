@@ -3,34 +3,62 @@ var $paletteGradient = document.querySelector('.palette-gradient');
 var $rgbCode = document.querySelectorAll('.rgb-code');
 var $newPaletteButton = document.querySelector('.new-palette-button');
 var $projectEntryForm = document.querySelector('#new-project-form');
+var $colorSearch = document.querySelector('#color-search');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
+$colorSearch.addEventListener('change', colorSearch);
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
-
-  data.randomColorPalette = {};
-  getRandomColors();
+  data.colorPalette = {};
+  data.search = false;
+  getColors();
 }
 
-function getRandomColors() {
+function getColors(rgb) {
   var targetUrl = encodeURIComponent('http://colormind.io/api/');
-  var body = {
-    model: 'default'
-  };
+  if (data.search === false) {
+    var body = {
+      model: 'default'
+    };
+  } else if (data.search === true) {
+    body = {
+      input: [rgb, 'N', 'N', 'N', 'N'],
+      model: 'default'
+    };
+  }
   var xhr = new XMLHttpRequest();
   xhr.open('POST', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    data.randomColorPalette = xhr.response.result;
-    setColorPalette(data.randomColorPalette);
-    setRgbCodes(data.randomColorPalette);
-    setGradient(data.randomColorPalette);
+    data.colorPalette = xhr.response.result;
+    setColorPalette(data.colorPalette);
+    setRgbCodes(data.colorPalette);
+    setGradient(data.colorPalette);
   });
   xhr.send(JSON.stringify(body));
 }
 
-getRandomColors();
+getColors();
+
+function colorSearch(event) {
+  var hex = event.target.value;
+  data.search = true;
+  hexToRGB(hex);
+  data.search = false;
+}
+
+function hexToRGB(hex) {
+  var hexNoHash = hex.slice(1);
+  var r = hexNoHash.slice(0, 2);
+  var g = hexNoHash.slice(2, 4);
+  var b = hexNoHash.slice(4);
+  r = parseInt(r, 16);
+  g = parseInt(g, 16);
+  b = parseInt(b, 16);
+  var rgb = [r, g, b];
+  getColors(rgb);
+}
 
 function generateCssStringRGB(red, green, blue, x, y) {
   var rgbString = 'rgb(' + red + ',' + green + ',' + blue + ') ' + x + '% ' + y + '%';
@@ -48,7 +76,7 @@ function setColorPalette(paletteColors) {
 }
 
 function setRgbCodes(paletteColors) {
-  for (var i = 0; i < $rgbCode.length; i++) {
+  for (var i = 0; i < paletteColors.length; i++) {
     $rgbCode[i].textContent = '(' + paletteColors[i][0] + ', ' + paletteColors[i][1] + ', ' + paletteColors[i][2] + ')';
   }
 }
@@ -73,13 +101,14 @@ function saveProject(event) {
     projectName: projectNameInput,
     projectDetails: projectDetailsInput,
     projectDeadline: projectDeadlineInput,
-    colorPalette: data.randomColorPalette
+    colorPalette: data.colorPalette
   };
   newProjectEntry.entryId = data.nextEntryId;
   data.nextEntryId++;
   data.entries.unshift(newProjectEntry);
-  data.randomColorPalette = {};
+  data.colorPalette = {};
 
+  getColors();
   $projectEntryForm.reset();
 }
 

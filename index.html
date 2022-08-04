@@ -60,12 +60,16 @@
               onfocus="(this.type='date')" onblur="(this.type='text')">
             </div>
           </div>
-          <div class="row small-margin justify-space-between">
-            <div class="column-flex">
+          <div class="row small-margin justify-space-between align-items-center">
+            <div class="column-flex grow">
               <p class="color-palette-header">Color Palette</p>
             </div>
             <div class="column-flex">
               <button class="new-palette-button">NEW PALETTE</button>
+            </div>
+            <div class="column-flex form-fields">
+              <label class="search-label" for="color-search">Search by color: </label>
+              <input type="color" name="colorSearch" id="color-search">
             </div>
           </div>
           <div class="row">
@@ -87,7 +91,11 @@
             </div>
           </div>
         </form>
+
+
       </div>
+
+
     </div>
   </main>
   <script src="js/data.js"></script>
