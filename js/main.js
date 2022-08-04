@@ -4,6 +4,7 @@ var $rgbCode = document.querySelectorAll('.rgb-code');
 var $newPaletteButton = document.querySelector('.new-palette-button');
 var $projectEntryForm = document.querySelector('#new-project-form');
 var $colorSearch = document.querySelector('#color-search');
+var $projectsList = document.querySelector('.projects-list');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -32,9 +33,9 @@ function getColors(rgb) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     data.colorPalette = xhr.response.result;
-    setColorPalette(data.colorPalette);
+    setColorPalette(data.colorPalette, $colorPalette);
     setRgbCodes(data.colorPalette);
-    setGradient(data.colorPalette);
+    setGradient(data.colorPalette, $paletteGradient);
   });
   xhr.send(JSON.stringify(body));
 }
@@ -65,8 +66,8 @@ function generateCssStringRGB(red, green, blue, x, y) {
   return rgbString;
 }
 
-function setColorPalette(paletteColors) {
-  $colorPalette.style.background = 'linear-gradient(' +
+function setColorPalette(paletteColors, element) {
+  element.style.background = 'linear-gradient(' +
   0.25 + 'turn,' +
   generateCssStringRGB(paletteColors[0][0], paletteColors[0][1], paletteColors[0][2], '0', '20') + ',' +
   generateCssStringRGB(paletteColors[1][0], paletteColors[1][1], paletteColors[1][2], '0', '40') + ',' +
@@ -81,8 +82,8 @@ function setRgbCodes(paletteColors) {
   }
 }
 
-function setGradient(paletteColors) {
-  $paletteGradient.style.background = 'linear-gradient(' +
+function setGradient(paletteColors, element) {
+  element.style.background = 'linear-gradient(' +
   0.25 + 'turn,' +
   generateCssStringRGB(paletteColors[0][0], paletteColors[0][1], paletteColors[0][2], '0', '15') + ',' +
   generateCssStringRGB(paletteColors[1][0], paletteColors[1][1], paletteColors[1][2], '25', '35') + ',' +
@@ -97,6 +98,8 @@ function saveProject(event) {
   var projectNameInput = $projectEntryForm.elements.projectName.value;
   var projectDetailsInput = $projectEntryForm.elements.projectDetails.value;
   var projectDeadlineInput = $projectEntryForm.elements.projectDeadline.value;
+  projectDeadlineInput = convertDateFormat(projectDeadlineInput);
+
   var newProjectEntry = {
     projectName: projectNameInput,
     projectDetails: projectDetailsInput,
@@ -108,20 +111,72 @@ function saveProject(event) {
   data.entries.unshift(newProjectEntry);
   data.colorPalette = {};
 
-  getColors();
+  var renderedProjectEntry = renderProjectEntry(newProjectEntry);
+  $projectsList.prepend(renderedProjectEntry);
+  getColors('rrggbb');
   $projectEntryForm.reset();
 }
 
 $projectEntryForm.addEventListener('submit', saveProject);
 
-// function renderProjectEntry() {
-//   // <li class="column-one-third polaroid-spacing">
-//   //   <div class="polaroid-background">
-//   //     <i class="fa-solid fa-thumbtack pin"></i>
-//   //     <div class="polaroid-gradient"></div>
-//   //     <p class="polaroid-title">Hulu Website Update</p>
-//   //     <p class="polaroid-date">Due: Deptember 2, 2022</p>
-//   //     <i class="fa-solid fa-ellipsis ellipsis"></i>
-//   //   </div>
-//   // </li>
-// }
+function convertDateFormat(dateString) {
+  var dateInputArray = dateString.split('-');
+  var months = ['January', 'Febraury', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+    'October', 'November', 'December'];
+  var monthIndex = parseInt(dateInputArray[1]) - 1;
+  var date = months[monthIndex] + ' ' + dateInputArray[2] + ', ' + dateInputArray[0];
+  return date;
+}
+
+function renderProjectEntry(project) {
+  // <li class="column-one-third polaroid-spacing">
+  //   <div class="polaroid-background">
+  //     <i class="fa-solid fa-thumbtack pin"></i>
+  //     <div class="polaroid-gradient"></div>
+  //     <p class="polaroid-title">Hulu Website Update</p>
+  //     <p class="polaroid-date">Due: Deptember 2, 2022</p>
+  //     <i class="fa-solid fa-ellipsis ellipsis"></i>
+  //   </div>
+  // </li>
+
+  var liElement = document.createElement('li');
+  liElement.className = 'column-one-third polaroid-spacing';
+
+  var backgroundDiv = document.createElement('div');
+  backgroundDiv.className = 'polaroid-background';
+  liElement.appendChild(backgroundDiv);
+
+  var iPin = document.createElement('i');
+  iPin.className = 'fa-solid fa-thumbtack pin';
+  backgroundDiv.appendChild(iPin);
+
+  var gradientDiv = document.createElement('div');
+  gradientDiv.className = 'polaroid-gradient';
+  setGradient(project.colorPalette, gradientDiv);
+  backgroundDiv.appendChild(gradientDiv);
+
+  var titleP = document.createElement('p');
+  titleP.className = 'polaroid-title';
+  titleP.textContent = project.projectName;
+  backgroundDiv.appendChild(titleP);
+
+  var dateP = document.createElement('p');
+  dateP.className = 'polaroid-date';
+  dateP.textContent = 'Deadline: ' + project.projectDeadline;
+  backgroundDiv.appendChild(dateP);
+
+  var ellipsisI = document.createElement('i');
+  ellipsisI.className = 'fa-solid fa-ellipsis ellipsis';
+  backgroundDiv.appendChild(ellipsisI);
+
+  return liElement;
+
+}
+
+function handleDomContentLoaded(event) {
+  for (var i = 0; i < data.entries.length; i++) {
+    var newProject = renderProjectEntry(data.entries[i]);
+    $projectsList.appendChild(newProject);
+  }
+}
+document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
