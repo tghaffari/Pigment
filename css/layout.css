@@ -13,7 +13,8 @@
 }
 
 .column-full,
-.column-half {
+.column-half,
+.column-one-third {
   width: 100%;
 }
 
@@ -34,7 +35,11 @@
     width: 50%;
   }
 
-  main {
+  .column-one-third {
+    width: calc(100%/3);
+  }
+
+  form {
     margin: 0 20%;
   }
 }
