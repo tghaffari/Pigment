@@ -176,11 +176,21 @@ li {
   margin-bottom: 30px;
 }
 
-.projects-styling {
-  margin-bottom: 5px;
+.wrap {
+  flex-wrap: no-wrap;
+  display: block;
 }
 
-.polaroid-margins {
+.cenetered {
+  display: flex;
+  justify-content: center;
+}
+
+.polaroid-spacing {
+  padding: 0;
+}
+
+.polaroid-outside-margins {
   margin: 0 12%;
 }
 
@@ -190,13 +200,8 @@ li {
   height: 275px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   position: relative;
-  top: 11px;
-  z-index: -1;
   padding: 15px 25px;
-}
-
-.position-relative {
-  position: relative;
+  margin: 0 0 30px;
 }
 
 .pin {
@@ -204,6 +209,8 @@ li {
   position: absolute;
   font-size: 16px;
   transform: rotate(-30deg);
+  left: -5px;
+  top: -10px;
 }
 
 .polaroid-gradient {
@@ -229,6 +236,86 @@ li {
 .ellipsis {
   color: #03322f;
   margin: 20px 0 0;
+}
+
+.modal-background {
+  background-color: rgba(0 0 0/ 0.8);
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+}
+
+.modal-window {
+  border: none;
+  background-color: #f6fbf4;
+  width: 100%;
+  height: 33rem;
+  margin: 0 15px;
+  overflow: scroll;
+}
+
+.exit {
+  color: #03322f;
+  position: relative;
+  top: 10px;
+  left: 15px;
+}
+
+.modal-padding {
+  padding: 0 20px;
+}
+
+.project-title-modal {
+  color: #03322f;
+  font-family: Inter, sans-serif;
+  text-align: center;
+  margin: 20px 0 5px;
+}
+
+.due-date-modal {
+  color: #03322f;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  text-align: center;
+  margin: 0;
+}
+
+.details-header-modal,
+.color-palette-modal-header {
+  color: #03322f;
+  font-family: Inter, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.project-details-modal {
+  color: #03322f;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  margin-bottom: 40px;
+}
+
+.modal-palette {
+  width: 100%;
+  background-color: red;
+  height: 100px;
+}
+
+.modal-gradient {
+  width: 100%;
+  background-color: red;
+  height: 100px;
+}
+
+.rgb-padding {
+  padding: 5px 0;
 }
 
 a:hover,
@@ -271,7 +358,44 @@ a:hover,
     width: 50px;
   }
 
-  .polaroid-margins {
+  .polaroid-outside-margins {
     margin: 0;
+  }
+
+  .wrap {
+    flex-wrap: wrap;
+    display: flex;
+  }
+
+  .polaroid-gradient {
+    width: 100%;
+    background-color: red;
+    height: 12rem;
+  }
+
+  .polaroid-background {
+    width: 100%;
+    height: 320px;
+  }
+
+  .polaroid-spacing {
+    padding: 0 12px;
+  }
+
+  .modal-window {
+    height: 40rem;
+    width: 50%;
+  }
+
+  .modal-padding {
+    padding: 0 70px;
+  }
+
+  .modal-palette {
+    height: 130px;
+  }
+
+  .modal-gradient {
+    height: 130px;
   }
 }

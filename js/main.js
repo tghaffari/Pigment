@@ -113,3 +113,15 @@ function saveProject(event) {
 }
 
 $projectEntryForm.addEventListener('submit', saveProject);
+
+// function renderProjectEntry() {
+//   // <li class="column-one-third polaroid-spacing">
+//   //   <div class="polaroid-background">
+//   //     <i class="fa-solid fa-thumbtack pin"></i>
+//   //     <div class="polaroid-gradient"></div>
+//   //     <p class="polaroid-title">Hulu Website Update</p>
+//   //     <p class="polaroid-date">Due: Deptember 2, 2022</p>
+//   //     <i class="fa-solid fa-ellipsis ellipsis"></i>
+//   //   </div>
+//   // </li>
+// }
