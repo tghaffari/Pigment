@@ -233,9 +233,14 @@ li {
   font-weight: normal;
 }
 
+.polaroid-checkmark {
+  color: rgb(212, 209, 209);
+  margin: 5px 0 0;
+  font-size: 20px;
+}
+
 .ellipsis {
   color: #03322f;
-  margin: 20px 0 0;
 }
 
 .modal-background {
@@ -286,6 +291,19 @@ li {
   margin: 0;
 }
 
+.modal-checkmark {
+  color: rgb(212, 209, 209);
+  text-align: center;
+  margin: 2px 0;
+  font-size: 18px;
+}
+
+.completed {
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+  margin-left: 5px;
+}
+
 .details-header-modal,
 .color-palette-modal-header {
   color: #03322f;
@@ -322,8 +340,9 @@ a:hover,
 .new-palette-button:hover,
 .save-button:hover,
 #color-search:hover,
-.ellipsis,
-.exit {
+.ellipsis:hover,
+.exit:hover,
+.polaroid-checkmark:hover {
   cursor: pointer;
 }
 
@@ -389,6 +408,23 @@ a:hover,
     padding: 0 12px;
   }
 
+  .polaroid-title {
+    font-size: 18px;
+  }
+
+  .polaroid-date {
+    font-size: 12px;
+  }
+
+  .polaroid-checkmark {
+    margin: 10px 0 5px;
+  }
+
+  .ellipsis {
+    margin: 0;
+    font-size: 20px;
+  }
+
   .modal-window {
     height: 40rem;
     width: 50%;
@@ -404,13 +440,5 @@ a:hover,
 
   .modal-gradient {
     height: 130px;
-  }
-
-  .polaroid-title {
-    font-size: 18px;
-  }
-
-  .polaroid-date {
-    font-size: 12px;
   }
 }
