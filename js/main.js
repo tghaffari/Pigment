@@ -1,10 +1,15 @@
 var $colorPalette = document.querySelector('.color-palette');
 var $paletteGradient = document.querySelector('.palette-gradient');
-var $rgbCode = document.querySelectorAll('.rgb-code');
+var $newProjectRGBCode = document.querySelectorAll('[data-type="new-project-RGB-code"]');
 var $newPaletteButton = document.querySelector('.new-palette-button');
 var $projectEntryForm = document.querySelector('#new-project-form');
 var $colorSearch = document.querySelector('#color-search');
 var $projectsList = document.querySelector('.projects-list');
+var $detailsModal = document.querySelector('#details-modal');
+var $exit = document.querySelector('.exit');
+var $dataView = document.querySelectorAll('[data-view]');
+var $newAnchor = document.querySelector('.new-anchor');
+var $projectsAnchor = document.querySelector('.projects-anchor');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -34,12 +39,11 @@ function getColors(rgb) {
   xhr.addEventListener('load', function () {
     data.colorPalette = xhr.response.result;
     setColorPalette(data.colorPalette, $colorPalette);
-    setRgbCodes(data.colorPalette);
+    setRgbCodes(data.colorPalette, $newProjectRGBCode);
     setGradient(data.colorPalette, $paletteGradient);
   });
   xhr.send(JSON.stringify(body));
 }
-
 getColors();
 
 function colorSearch(event) {
@@ -76,9 +80,9 @@ function setColorPalette(paletteColors, element) {
   generateCssStringRGB(paletteColors[4][0], paletteColors[4][1], paletteColors[4][2], '0', '90') + ')';
 }
 
-function setRgbCodes(paletteColors) {
+function setRgbCodes(paletteColors, element) {
   for (var i = 0; i < paletteColors.length; i++) {
-    $rgbCode[i].textContent = '(' + paletteColors[i][0] + ', ' + paletteColors[i][1] + ', ' + paletteColors[i][2] + ')';
+    element[i].textContent = '(' + paletteColors[i][0] + ', ' + paletteColors[i][1] + ', ' + paletteColors[i][2] + ')';
   }
 }
 
@@ -115,6 +119,7 @@ function saveProject(event) {
   $projectsList.prepend(renderedProjectEntry);
   getColors('rrggbb');
   $projectEntryForm.reset();
+  viewSwap('projects');
 }
 
 $projectEntryForm.addEventListener('submit', saveProject);
@@ -140,6 +145,7 @@ function renderProjectEntry(project) {
   // </li>
 
   var liElement = document.createElement('li');
+  liElement.setAttribute('data-entry-id', project.entryId);
   liElement.className = 'column-one-third polaroid-spacing';
 
   var backgroundDiv = document.createElement('div');
@@ -178,5 +184,74 @@ function handleDomContentLoaded(event) {
     var newProject = renderProjectEntry(data.entries[i]);
     $projectsList.appendChild(newProject);
   }
+  viewSwap(data.view);
+
 }
 document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
+
+function handlePolaroidClicks(event) {
+  if (event.target.matches('.ellipsis')) {
+    var closestProject = event.target.closest('li');
+    var projectID = closestProject.getAttribute('data-entry-id');
+    projectID = parseInt(projectID);
+    for (var i = 0; i < data.entries.length; i++) {
+      if (projectID === data.entries[i].entryId) {
+        showProjectDetails(data.entries[i]);
+      }
+    }
+  }
+}
+
+function showProjectDetails(data) {
+  $detailsModal.className = 'modal-background';
+
+  var $detailsProjectTitle = document.querySelector('.project-title-modal');
+  $detailsProjectTitle.textContent = data.projectName;
+
+  var $detailsDate = document.querySelector('.due-date-modal');
+  $detailsDate.textContent = 'Deadline: ' + data.projectDeadline;
+
+  var $projectDetails = document.querySelector('.project-details-modal');
+  $projectDetails.textContent = data.projectDetails;
+
+  var $detailsColorPalette = document.querySelector('.modal-palette');
+  setColorPalette(data.colorPalette, $detailsColorPalette);
+
+  var $detailsRGBCode = document.querySelectorAll('[data-type="details-RGB-code"]');
+  setRgbCodes(data.colorPalette, $detailsRGBCode);
+
+  var $detailsGradient = document.querySelector('.modal-gradient');
+  setGradient(data.colorPalette, $detailsGradient);
+
+}
+
+$projectsList.addEventListener('click', handlePolaroidClicks);
+
+function closeDetails(event) {
+  $detailsModal.className = 'modal-background hidden';
+}
+
+$exit.addEventListener('click', closeDetails);
+
+function viewSwap(view) {
+  for (var i = 0; i < $dataView.length; i++) {
+    if (view === $dataView[i].getAttribute('data-view')) {
+      $dataView[i].className = 'view';
+      data.view = view;
+    } else {
+      $dataView[i].className = 'view hidden';
+    }
+  }
+}
+
+function handleNewClik(event) {
+  getColors();
+  viewSwap('new-project-form');
+}
+
+function handleProjectsClick(event) {
+  viewSwap('projects');
+}
+
+$newAnchor.addEventListener('click', handleNewClik);
+$projectsAnchor.addEventListener('click', handleProjectsClick);

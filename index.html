@@ -38,7 +38,7 @@
   <main>
     <div class="container">
 
-      <div data-view="new-project-form" class="hidden">
+      <div data-view="new-project-form" class="">
         <form action="" id="new-project-form">
           <div class="row">
             <div class="column-full">
@@ -80,11 +80,11 @@
             <div class="column-full palette-height color-palette"></div>
           </div>
           <div class="row small-margin">
-            <div class="column-one-fifth rgb-code text-align-center" data-id="1"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-id="2"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-id="3"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-id="4"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-id="5"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
           </div>
           <div class="row form-margin-bottom">
             <div class="column-full palette-height palette-gradient"></div>
@@ -97,7 +97,7 @@
         </form>
       </div>
 
-      <div data-view="projects">
+      <div data-view="projects" class="hidden">
         <div class="row">
           <div class="column-full">
             <h1 class="projects-styling">PROJECTS</h1>
@@ -106,11 +106,11 @@
         <ul class="projects-list polaroid-outside-margins row wrap ">
         </ul>
 
-        <div class="modal-background hidden">
+        <div class="modal-background hidden" id="details-modal" >
           <div class="modal-window">
             <i class="fa-solid fa-xmark exit"></i>
             <div class="row modal-padding">
-              <div class="column-full">
+              <div class="column-full" >
                 <h1 class="project-title-modal">Project Title</h1>
                 <p class="due-date-modal">Deadline: Jan 1, 2001</p>
                 <h3 class="details-header-modal">Details:</h3>
@@ -118,20 +118,19 @@
                 <h3 class="color-palette-modal-header">Color Palette:</h3>
                 <div class="modal-palette"></div>
                 <div class="row rgb-padding">
-                  <div class="column-one-fifth rgb-code text-align-center" data-id="1">2</div>
-                  <div class="column-one-fifth rgb-code text-align-center" data-id="2">3</div>
-                  <div class="column-one-fifth rgb-code text-align-center" data-id="3">5</div>
-                  <div class="column-one-fifth rgb-code text-align-center" data-id="4">6</div>
-                  <div class="column-one-fifth rgb-code text-align-center" data-id="5">4</div>
+                  <div class="column-one-fifth rgb-code text-align-center" data-type="details-RGB-code">2</div>
+                  <div class="column-one-fifth rgb-code text-align-center" data-type="details-RGB-code">3</div>
+                  <div class="column-one-fifth rgb-code text-align-center" data-type="details-RGB-code">5</div>
+                  <div class="column-one-fifth rgb-code text-align-center" data-type="details-RGB-code">6</div>
+                  <div class="column-one-fifth rgb-code text-align-center" data-type="details-RGB-code">4</div>
                 </div>
                 <div class="modal-gradient"></div>
               </div>
             </div>
-
-
           </div>
-
         </div>
+
+
       </div>
     </div>
   </main>

@@ -229,7 +229,7 @@ li {
 }
 
 .polaroid-date {
-  font-size: 10px;
+  font-size: 11px;
   font-weight: normal;
 }
 
@@ -299,7 +299,7 @@ li {
   font-family: Inter, sans-serif;
   font-size: 16px;
   font-weight: 300;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
 }
 
 .modal-palette {
@@ -321,13 +321,20 @@ li {
 a:hover,
 .new-palette-button:hover,
 .save-button:hover,
-#color-search:hover {
+#color-search:hover,
+.ellipsis,
+.exit {
   cursor: pointer;
+}
+
+.exit:hover,
+.ellipsis:hover {
+  box-shadow: 0 0 10px 3px rgba(56, 239, 227, 0.5);
 }
 
 .form-fields:focus {
   outline: none;
-  border-color: #38efe3;
+  border-color: rgb(56, 239, 227);
 }
 
 @media screen and (min-width: 768px) {
@@ -397,5 +404,13 @@ a:hover,
 
   .modal-gradient {
     height: 130px;
+  }
+
+  .polaroid-title {
+    font-size: 18px;
+  }
+
+  .polaroid-date {
+    font-size: 12px;
   }
 }
