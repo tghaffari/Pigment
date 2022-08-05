@@ -145,7 +145,10 @@ function renderProjectEntry(project) {
   //   <div class="polaroid-background">
   //     <i class="fa-solid fa-thumbtack pin"></i>
   //     <div class="polaroid-gradient"></div>
-  //     <p class="polaroid-title">Hulu Website Update</p>
+  //     <div class="row justify-space-between">
+  //        <p class="polaroid-title">Hulu Website Update</p>
+  //        <i class="fa-solid fa-pencil polaroid-edit-icon"></i>
+  //      </div>
   //     <p class="polaroid-date">Due: Deptember 2, 2022</p>
   //     <p class="polaroid-checkmark">&#10004;</p>
   //     <i class="fa-solid fa-ellipsis ellipsis"></i>
@@ -169,10 +172,18 @@ function renderProjectEntry(project) {
   setGradient(project.colorPalette, gradientDiv);
   backgroundDiv.appendChild(gradientDiv);
 
+  var row = document.createElement('div');
+  row.className = 'row justify-space-between';
+  backgroundDiv.appendChild(row);
+
   var titleP = document.createElement('p');
   titleP.className = 'polaroid-title';
   titleP.textContent = project.projectName;
-  backgroundDiv.appendChild(titleP);
+  row.appendChild(titleP);
+
+  var editIcon = document.createElement('i');
+  editIcon.className = 'fa-solid fa-pencil polaroid-edit-icon';
+  row.appendChild(editIcon);
 
   var dateP = document.createElement('p');
   dateP.className = 'polaroid-date';
@@ -194,7 +205,6 @@ function renderProjectEntry(project) {
   backgroundDiv.appendChild(ellipsisI);
 
   return liElement;
-
 }
 
 function handleDomContentLoaded(event) {
@@ -203,7 +213,6 @@ function handleDomContentLoaded(event) {
     $projectsList.appendChild(newProject);
   }
   viewSwap(data.view);
-
 }
 
 function handlePolaroidClicks(event) {
@@ -217,7 +226,6 @@ function handlePolaroidClicks(event) {
       }
     }
   }
-
   if (event.target.matches('.polaroid-checkmark')) {
     closestProject = event.target.closest('li');
     projectID = closestProject.getAttribute('data-entry-id');
@@ -238,8 +246,8 @@ function handleCompleted(target, data) {
     data.completed = false;
     target.style.color = 'rgb(212, 209, 209)';
   }
-
 }
+
 function showProjectDetails(data) {
   $detailsModal.className = 'modal-background';
 
@@ -269,7 +277,6 @@ function showProjectDetails(data) {
 
   var $detailsGradient = document.querySelector('.modal-gradient');
   setGradient(data.colorPalette, $detailsGradient);
-
 }
 
 function closeDetails(event) {
@@ -295,3 +302,7 @@ function handleNewClik(event) {
 function handleProjectsClick(event) {
   viewSwap('projects');
 }
+
+// when the user opens the modal, automatically assign that data to editing.
+// when they click the x, reset editing back to null
+// try the same for the completed option

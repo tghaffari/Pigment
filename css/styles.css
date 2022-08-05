@@ -77,6 +77,7 @@
 #project-name {
   width: 100%;
   height: 30px;
+  margin-bottom: 15px;
 }
 
 #project-details {
@@ -89,8 +90,21 @@
   height: 30px;
 }
 
+.form-checkmark {
+  color: rgb(212, 209, 209);
+  margin-left: 25px;
+  font-size: 18px;
+}
+
+.form-completed {
+  color: rgb(212, 209, 209);
+  margin-left: 5px;
+  font-family: Inter, sans-serif;
+  font-size: 16px;
+}
+
 .form-margin-bottom {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
 }
 
 .color-palette-header {
@@ -228,9 +242,15 @@ li {
   font-weight: bold;
 }
 
+.polaroid-edit-icon {
+  margin-top: 4px;
+  color: #03322f;
+}
+
 .polaroid-date {
   font-size: 11px;
   font-weight: normal;
+  margin-top: 2px;
 }
 
 .polaroid-checkmark {
@@ -304,6 +324,12 @@ li {
   margin-left: 5px;
 }
 
+.modal-edit-icon {
+  margin-top: 15px;
+  color: #03322f;
+  font-size: 18px;
+}
+
 .details-header-modal,
 .color-palette-modal-header {
   color: #03322f;
@@ -339,10 +365,11 @@ li {
 a:hover,
 .new-palette-button:hover,
 .save-button:hover,
-#color-search:hover,
 .ellipsis:hover,
 .exit:hover,
-.polaroid-checkmark:hover {
+.polaroid-checkmark:hover,
+.modal-edit-icon:hover,
+#color-search:hover {
   cursor: pointer;
 }
 
@@ -440,5 +467,18 @@ a:hover,
 
   .modal-gradient {
     height: 130px;
+  }
+
+  .modal-edit-icon {
+    margin-top: 25px;
+    font-size: 22px;
+  }
+
+  .form-checkmark {
+    font-size: 20px;
+  }
+
+  .form-completed {
+    font-size: 18px;
   }
 }

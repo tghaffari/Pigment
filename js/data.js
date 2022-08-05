@@ -4,7 +4,8 @@ var data = {
   entries: [],
   nextEntryId: 1,
   colorPalette: [],
-  search: false
+  search: false,
+  editing: null
 };
 
 var dataJSON = localStorage.getItem('pigment-local-storage');
