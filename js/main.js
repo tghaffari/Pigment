@@ -108,7 +108,8 @@ function saveProject(event) {
     projectName: projectNameInput,
     projectDetails: projectDetailsInput,
     projectDeadline: projectDeadlineInput,
-    colorPalette: data.colorPalette
+    colorPalette: data.colorPalette,
+    completed: false
   };
   newProjectEntry.entryId = data.nextEntryId;
   data.nextEntryId++;
@@ -206,8 +207,29 @@ function handlePolaroidClicks(event) {
       }
     }
   }
+
+  if (event.target.matches('.polaroid-checkmark')) {
+    closestProject = event.target.closest('li');
+    projectID = closestProject.getAttribute('data-entry-id');
+    projectID = parseInt(projectID);
+    for (i = 0; i < data.entries.length; i++) {
+      if (projectID === data.entries[i].entryId) {
+        handleCompletedClickPolaroid(event.target, data.entries[i]);
+      }
+    }
+  }
 }
 
+function handleCompletedClickPolaroid(target, data) {
+  if (data.completed === false) {
+    data.completed = true;
+    target.style.color = 'limegreen';
+  } else if (data.completed === true) {
+    data.completed = false;
+    target.style.color = 'rgb(212, 209, 209)';
+  }
+
+}
 function showProjectDetails(data) {
   $detailsModal.className = 'modal-background';
 
