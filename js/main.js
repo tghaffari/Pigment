@@ -10,9 +10,16 @@ var $exit = document.querySelector('.exit');
 var $dataView = document.querySelectorAll('[data-view]');
 var $newAnchor = document.querySelector('.new-anchor');
 var $projectsAnchor = document.querySelector('.projects-anchor');
+var $modalCheckmark = document.querySelector('.modal-checkmark');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
+$projectEntryForm.addEventListener('submit', saveProject);
+document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
+$projectsList.addEventListener('click', handlePolaroidClicks);
+$exit.addEventListener('click', closeDetails);
+$newAnchor.addEventListener('click', handleNewClik);
+$projectsAnchor.addEventListener('click', handleProjectsClick);
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
@@ -44,6 +51,7 @@ function getColors(rgb) {
   });
   xhr.send(JSON.stringify(body));
 }
+
 getColors();
 
 function colorSearch(event) {
@@ -123,8 +131,6 @@ function saveProject(event) {
   viewSwap('projects');
 }
 
-$projectEntryForm.addEventListener('submit', saveProject);
-
 function convertDateFormat(dateString) {
   var dateInputArray = dateString.split('-');
   var months = ['January', 'Febraury', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
@@ -176,6 +182,11 @@ function renderProjectEntry(project) {
   var checkmark = document.createElement('p');
   checkmark.className = 'polaroid-checkmark';
   checkmark.innerHTML = '&#10004;';
+  if (project.completed === false) {
+    checkmark.style.color = 'rgb(212, 209, 209)';
+  } else if (project.completed === true) {
+    checkmark.style.color = 'limegreen';
+  }
   backgroundDiv.appendChild(checkmark);
 
   var ellipsisI = document.createElement('i');
@@ -194,7 +205,6 @@ function handleDomContentLoaded(event) {
   viewSwap(data.view);
 
 }
-document.addEventListener('DOMContentLoaded', handleDomContentLoaded);
 
 function handlePolaroidClicks(event) {
   if (event.target.matches('.ellipsis')) {
@@ -214,13 +224,13 @@ function handlePolaroidClicks(event) {
     projectID = parseInt(projectID);
     for (i = 0; i < data.entries.length; i++) {
       if (projectID === data.entries[i].entryId) {
-        handleCompletedClickPolaroid(event.target, data.entries[i]);
+        handleCompleted(event.target, data.entries[i]);
       }
     }
   }
 }
 
-function handleCompletedClickPolaroid(target, data) {
+function handleCompleted(target, data) {
   if (data.completed === false) {
     data.completed = true;
     target.style.color = 'limegreen';
@@ -239,6 +249,15 @@ function showProjectDetails(data) {
   var $detailsDate = document.querySelector('.due-date-modal');
   $detailsDate.textContent = 'Deadline: ' + data.projectDeadline;
 
+  var $completed = document.querySelector('.completed');
+  if (data.completed === true) {
+    $modalCheckmark.style.color = 'limegreen';
+    $completed.style.color = '#03322f';
+  } else if (data.completed === false) {
+    $modalCheckmark.style.color = 'rgb(212, 209, 209)';
+    $completed.style.color = 'rgb(212, 209, 209)';
+  }
+
   var $projectDetails = document.querySelector('.project-details-modal');
   $projectDetails.textContent = data.projectDetails;
 
@@ -253,13 +272,9 @@ function showProjectDetails(data) {
 
 }
 
-$projectsList.addEventListener('click', handlePolaroidClicks);
-
 function closeDetails(event) {
   $detailsModal.className = 'modal-background hidden';
 }
-
-$exit.addEventListener('click', closeDetails);
 
 function viewSwap(view) {
   for (var i = 0; i < $dataView.length; i++) {
@@ -280,6 +295,3 @@ function handleNewClik(event) {
 function handleProjectsClick(event) {
   viewSwap('projects');
 }
-
-$newAnchor.addEventListener('click', handleNewClik);
-$projectsAnchor.addEventListener('click', handleProjectsClick);
