@@ -140,6 +140,7 @@ function renderProjectEntry(project) {
   //     <div class="polaroid-gradient"></div>
   //     <p class="polaroid-title">Hulu Website Update</p>
   //     <p class="polaroid-date">Due: Deptember 2, 2022</p>
+  //     <p class="polaroid-checkmark">&#10004;</p>
   //     <i class="fa-solid fa-ellipsis ellipsis"></i>
   //   </div>
   // </li>
@@ -170,6 +171,11 @@ function renderProjectEntry(project) {
   dateP.className = 'polaroid-date';
   dateP.textContent = 'Deadline: ' + project.projectDeadline;
   backgroundDiv.appendChild(dateP);
+
+  var checkmark = document.createElement('p');
+  checkmark.className = 'polaroid-checkmark';
+  checkmark.innerHTML = '&#10004;';
+  backgroundDiv.appendChild(checkmark);
 
   var ellipsisI = document.createElement('i');
   ellipsisI.className = 'fa-solid fa-ellipsis ellipsis';
