@@ -11,6 +11,13 @@ var $dataView = document.querySelectorAll('[data-view]');
 var $newAnchor = document.querySelector('.new-anchor');
 var $projectsAnchor = document.querySelector('.projects-anchor');
 var $modalCheckmark = document.querySelector('.modal-checkmark');
+var $projectName = document.querySelector('#project-name');
+var $projectDetails = document.querySelector('#project-details');
+var $projectDeadline = document.querySelector('#project-deadline');
+var $formTitle = document.querySelector('.new-project-styling');
+var $modalEdit = document.querySelector('.modal-edit-icon');
+var $formCheckmark = document.querySelector('.form-checkmark');
+var $formCompleted = document.querySelector('.form-completed');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -20,6 +27,8 @@ $projectsList.addEventListener('click', handlePolaroidClicks);
 $exit.addEventListener('click', closeDetails);
 $newAnchor.addEventListener('click', handleNewClik);
 $projectsAnchor.addEventListener('click', handleProjectsClick);
+$modalEdit.addEventListener('click', handleModalEdit);
+$formCheckmark.addEventListener('click', handleFormCompleted);
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
@@ -216,25 +225,61 @@ function handleDomContentLoaded(event) {
 }
 
 function handlePolaroidClicks(event) {
-  if (event.target.matches('.ellipsis')) {
-    var closestProject = event.target.closest('li');
-    var projectID = closestProject.getAttribute('data-entry-id');
-    projectID = parseInt(projectID);
-    for (var i = 0; i < data.entries.length; i++) {
-      if (projectID === data.entries[i].entryId) {
+  var closestProject = event.target.closest('li');
+  var projectID = closestProject.getAttribute('data-entry-id');
+  projectID = parseInt(projectID);
+  for (var i = 0; i < data.entries.length; i++) {
+    if (projectID === data.entries[i].entryId) {
+      if (event.target.matches('.ellipsis')) {
         showProjectDetails(data.entries[i]);
+        data.editing = data.entries[i];
+      }
+      if (event.target.matches('.polaroid-checkmark')) {
+        handleCompleted(event.target, data.entries[i]);
+      }
+      if (event.target.matches('.polaroid-edit-icon')) {
+        data.editing = data.entries[i];
+        handleEdit();
+        viewSwap('new-project-form');
       }
     }
   }
-  if (event.target.matches('.polaroid-checkmark')) {
-    closestProject = event.target.closest('li');
-    projectID = closestProject.getAttribute('data-entry-id');
-    projectID = parseInt(projectID);
-    for (i = 0; i < data.entries.length; i++) {
-      if (projectID === data.entries[i].entryId) {
-        handleCompleted(event.target, data.entries[i]);
-      }
+
+}
+
+function handleModalEdit() {
+  handleEdit();
+  viewSwap('new-project-form');
+}
+
+function handleEdit() {
+  if (data.editing !== null) {
+    $projectName.value = data.editing.projectName;
+    $projectDetails.value = data.editing.projectDetails;
+    $projectDeadline.value = data.editing.projectDeadline;
+    setColorPalette(data.editing.colorPalette, $colorPalette);
+    setRgbCodes(data.editing.colorPalette, $newProjectRGBCode);
+    setGradient(data.editing.colorPalette, $paletteGradient);
+    $formTitle.textContent = 'Edit Project';
+    $formCheckmark.className = 'form-checkmark';
+    if (data.editing.completed === true) {
+      $formCheckmark.style.color = 'limegreen';
+      $formCompleted.style.color = '#03322f';
+    } else if (data.editing.completed === false) {
+      $formCheckmark.style.color = 'rgb(212, 209, 209)';
     }
+  }
+}
+
+function handleFormCompleted(event) {
+  if (data.editing.completed === false) {
+    data.editing.completed = true;
+    $formCheckmark.style.color = 'limegreen';
+    $formCompleted.style.color = '#03322f';
+  } else if (data.editing.completed === true) {
+    data.editing.completed = false;
+    $formCheckmark.style.color = 'rgb(212, 209, 209)';
+    $formCompleted.style.color = 'rgb(212, 209, 209)';
   }
 }
 
@@ -281,6 +326,7 @@ function showProjectDetails(data) {
 
 function closeDetails(event) {
   $detailsModal.className = 'modal-background hidden';
+  data.editing = null;
 }
 
 function viewSwap(view) {
@@ -296,6 +342,10 @@ function viewSwap(view) {
 
 function handleNewClik(event) {
   getColors();
+  $formTitle.textContent = 'New Project';
+  $formCheckmark.className = ('form-checkmark hidden');
+  data.editing = null;
+  $projectEntryForm.reset();
   viewSwap('new-project-form');
 }
 

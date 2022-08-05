@@ -16,6 +16,8 @@ if (dataJSON !== null) {
 function saveEntryData(event) {
   var dataJSON = JSON.stringify(data);
   localStorage.setItem('pigment-local-storage', dataJSON);
+
+  data.editing = null;
 }
 
 window.addEventListener('beforeunload', saveEntryData);

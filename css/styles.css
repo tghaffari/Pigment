@@ -369,6 +369,9 @@ a:hover,
 .exit:hover,
 .polaroid-checkmark:hover,
 .modal-edit-icon:hover,
+.polaroid-edit-icon:hover,
+.form-checkmark,
+.form-completed,
 #color-search:hover {
   cursor: pointer;
 }
