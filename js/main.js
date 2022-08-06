@@ -115,13 +115,11 @@ function setGradient(paletteColors, element) {
 
 function saveProject(event) {
   event.preventDefault();
-
   var $li = document.querySelectorAll('li');
 
   var projectNameInput = $projectEntryForm.elements.projectName.value;
   var projectDetailsInput = $projectEntryForm.elements.projectDetails.value;
   var projectDeadlineInput = $projectEntryForm.elements.projectDeadline.value;
-  projectDeadlineInput = convertDateFormat(projectDeadlineInput);
 
   var newProjectEntry = {
     projectName: projectNameInput,
@@ -156,7 +154,6 @@ function saveProject(event) {
   }
 
   data.colorPalette = {};
-  getColors('rrggbb');
   $projectEntryForm.reset();
   viewSwap('projects');
 }
@@ -217,7 +214,7 @@ function renderProjectEntry(project) {
 
   var dateP = document.createElement('p');
   dateP.className = 'polaroid-date';
-  dateP.textContent = 'Deadline: ' + project.projectDeadline;
+  dateP.textContent = 'Deadline: ' + convertDateFormat(project.projectDeadline);
   backgroundDiv.appendChild(dateP);
 
   var checkmark = document.createElement('p');
@@ -260,6 +257,7 @@ function handlePolaroidClicks(event) {
       }
       if (event.target.matches('.polaroid-edit-icon')) {
         data.editing = data.entries[i];
+        data.colorPalette = data.entries[i].colorPalette;
         handleEdit();
         viewSwap('new-project-form');
       }
@@ -271,6 +269,7 @@ function handlePolaroidClicks(event) {
 function handleModalEdit() {
   handleEdit();
   viewSwap('new-project-form');
+  $detailsModal.className = 'modal-background hidden';
 }
 
 function handleEdit() {
@@ -283,6 +282,7 @@ function handleEdit() {
     setGradient(data.editing.colorPalette, $paletteGradient);
     $formTitle.textContent = 'Edit Project';
     $formCheckmark.className = 'form-checkmark';
+    data.colorPalette = data.editing.colorPalette;
     if (data.editing.completed === true) {
       $formCheckmark.style.color = 'limegreen';
       $formCompleted.style.color = '#03322f';
@@ -321,7 +321,7 @@ function showProjectDetails(data) {
   $detailsProjectTitle.textContent = data.projectName;
 
   var $detailsDate = document.querySelector('.due-date-modal');
-  $detailsDate.textContent = 'Deadline: ' + data.projectDeadline;
+  $detailsDate.textContent = 'Deadline: ' + convertDateFormat(data.projectDeadline);
 
   var $completed = document.querySelector('.completed');
   if (data.completed === true) {
