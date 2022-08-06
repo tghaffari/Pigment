@@ -57,11 +57,14 @@
               id="project-details" placeholder="Project Details"></textarea>
             </div>
           </div>
-          <div class="row form-margin-bottom">
+          <div class="row form-margin-bottom align-items-center">
             <div class="column-flex">
               <input required class="form-fields" type="text" name="projectDeadline"
               id="project-deadline" placeholder="Project Deadline"
               onfocus="(this.type='date')" onblur="(this.type='text')">
+            </div>
+            <div class="column-flex">
+              <p class="form-checkmark hidden">&#10004;<span class="form-completed">Completed</span></p>
             </div>
           </div>
           <div class="row small-margin justify-space-between align-items-center">
@@ -127,6 +130,9 @@
                   <div class="column-one-fifth rgb-code text-align-center" data-type="details-RGB-code">4</div>
                 </div>
                 <div class="modal-gradient"></div>
+                <div class="row justify-end">
+                  <i class="fa-solid fa-pencil modal-edit-icon"></i>
+                </div>
               </div>
             </div>
           </div>

@@ -4,7 +4,8 @@ var data = {
   entries: [],
   nextEntryId: 1,
   colorPalette: [],
-  search: false
+  search: false,
+  editing: null
 };
 
 var dataJSON = localStorage.getItem('pigment-local-storage');
@@ -15,6 +16,8 @@ if (dataJSON !== null) {
 function saveEntryData(event) {
   var dataJSON = JSON.stringify(data);
   localStorage.setItem('pigment-local-storage', dataJSON);
+
+  data.editing = null;
 }
 
 window.addEventListener('beforeunload', saveEntryData);

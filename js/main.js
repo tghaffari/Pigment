@@ -11,6 +11,13 @@ var $dataView = document.querySelectorAll('[data-view]');
 var $newAnchor = document.querySelector('.new-anchor');
 var $projectsAnchor = document.querySelector('.projects-anchor');
 var $modalCheckmark = document.querySelector('.modal-checkmark');
+var $projectName = document.querySelector('#project-name');
+var $projectDetails = document.querySelector('#project-details');
+var $projectDeadline = document.querySelector('#project-deadline');
+var $formTitle = document.querySelector('.new-project-styling');
+var $modalEdit = document.querySelector('.modal-edit-icon');
+var $formCheckmark = document.querySelector('.form-checkmark');
+var $formCompleted = document.querySelector('.form-completed');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -20,6 +27,8 @@ $projectsList.addEventListener('click', handlePolaroidClicks);
 $exit.addEventListener('click', closeDetails);
 $newAnchor.addEventListener('click', handleNewClik);
 $projectsAnchor.addEventListener('click', handleProjectsClick);
+$modalEdit.addEventListener('click', handleModalEdit);
+$formCheckmark.addEventListener('click', handleFormCompleted);
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
@@ -106,27 +115,45 @@ function setGradient(paletteColors, element) {
 
 function saveProject(event) {
   event.preventDefault();
+  var $li = document.querySelectorAll('li');
 
   var projectNameInput = $projectEntryForm.elements.projectName.value;
   var projectDetailsInput = $projectEntryForm.elements.projectDetails.value;
   var projectDeadlineInput = $projectEntryForm.elements.projectDeadline.value;
-  projectDeadlineInput = convertDateFormat(projectDeadlineInput);
 
   var newProjectEntry = {
     projectName: projectNameInput,
     projectDetails: projectDetailsInput,
     projectDeadline: projectDeadlineInput,
-    colorPalette: data.colorPalette,
-    completed: false
+    colorPalette: data.colorPalette
   };
-  newProjectEntry.entryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(newProjectEntry);
-  data.colorPalette = {};
 
-  var renderedProjectEntry = renderProjectEntry(newProjectEntry);
-  $projectsList.prepend(renderedProjectEntry);
-  getColors('rrggbb');
+  if (data.editing !== null) {
+    newProjectEntry.completed = data.editing.completed;
+    newProjectEntry.entryId = data.editing.entryId;
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.editing.entryId === data.entries[i].entryId) {
+        data.entries[i] = newProjectEntry;
+      }
+    }
+    for (var a = 0; a < $li.length; a++) {
+      var entryId = $li[a].getAttribute('data-entry-id');
+      var dataEntryId = parseInt(entryId);
+      if (dataEntryId === data.editing.entryId) {
+        var createdProject = renderProjectEntry(newProjectEntry);
+        $li[a].replaceWith(createdProject);
+      }
+    }
+  } else {
+    newProjectEntry.completed = false;
+    newProjectEntry.entryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(newProjectEntry);
+    var renderedProjectEntry = renderProjectEntry(newProjectEntry);
+    $projectsList.prepend(renderedProjectEntry);
+  }
+
+  data.colorPalette = {};
   $projectEntryForm.reset();
   viewSwap('projects');
 }
@@ -145,7 +172,10 @@ function renderProjectEntry(project) {
   //   <div class="polaroid-background">
   //     <i class="fa-solid fa-thumbtack pin"></i>
   //     <div class="polaroid-gradient"></div>
-  //     <p class="polaroid-title">Hulu Website Update</p>
+  //     <div class="row justify-space-between">
+  //        <p class="polaroid-title">Hulu Website Update</p>
+  //        <i class="fa-solid fa-pencil polaroid-edit-icon"></i>
+  //      </div>
   //     <p class="polaroid-date">Due: Deptember 2, 2022</p>
   //     <p class="polaroid-checkmark">&#10004;</p>
   //     <i class="fa-solid fa-ellipsis ellipsis"></i>
@@ -169,14 +199,22 @@ function renderProjectEntry(project) {
   setGradient(project.colorPalette, gradientDiv);
   backgroundDiv.appendChild(gradientDiv);
 
+  var row = document.createElement('div');
+  row.className = 'row justify-space-between';
+  backgroundDiv.appendChild(row);
+
   var titleP = document.createElement('p');
   titleP.className = 'polaroid-title';
   titleP.textContent = project.projectName;
-  backgroundDiv.appendChild(titleP);
+  row.appendChild(titleP);
+
+  var editIcon = document.createElement('i');
+  editIcon.className = 'fa-solid fa-pencil polaroid-edit-icon';
+  row.appendChild(editIcon);
 
   var dateP = document.createElement('p');
   dateP.className = 'polaroid-date';
-  dateP.textContent = 'Deadline: ' + project.projectDeadline;
+  dateP.textContent = 'Deadline: ' + convertDateFormat(project.projectDeadline);
   backgroundDiv.appendChild(dateP);
 
   var checkmark = document.createElement('p');
@@ -194,7 +232,6 @@ function renderProjectEntry(project) {
   backgroundDiv.appendChild(ellipsisI);
 
   return liElement;
-
 }
 
 function handleDomContentLoaded(event) {
@@ -203,30 +240,67 @@ function handleDomContentLoaded(event) {
     $projectsList.appendChild(newProject);
   }
   viewSwap(data.view);
-
 }
 
 function handlePolaroidClicks(event) {
-  if (event.target.matches('.ellipsis')) {
-    var closestProject = event.target.closest('li');
-    var projectID = closestProject.getAttribute('data-entry-id');
-    projectID = parseInt(projectID);
-    for (var i = 0; i < data.entries.length; i++) {
-      if (projectID === data.entries[i].entryId) {
+  var closestProject = event.target.closest('li');
+  var projectID = closestProject.getAttribute('data-entry-id');
+  projectID = parseInt(projectID);
+  for (var i = 0; i < data.entries.length; i++) {
+    if (projectID === data.entries[i].entryId) {
+      if (event.target.matches('.ellipsis')) {
         showProjectDetails(data.entries[i]);
+        data.editing = data.entries[i];
+      }
+      if (event.target.matches('.polaroid-checkmark')) {
+        handleCompleted(event.target, data.entries[i]);
+      }
+      if (event.target.matches('.polaroid-edit-icon')) {
+        data.editing = data.entries[i];
+        data.colorPalette = data.entries[i].colorPalette;
+        handleEdit();
+        viewSwap('new-project-form');
       }
     }
   }
 
-  if (event.target.matches('.polaroid-checkmark')) {
-    closestProject = event.target.closest('li');
-    projectID = closestProject.getAttribute('data-entry-id');
-    projectID = parseInt(projectID);
-    for (i = 0; i < data.entries.length; i++) {
-      if (projectID === data.entries[i].entryId) {
-        handleCompleted(event.target, data.entries[i]);
-      }
+}
+
+function handleModalEdit() {
+  handleEdit();
+  viewSwap('new-project-form');
+  $detailsModal.className = 'modal-background hidden';
+}
+
+function handleEdit() {
+  if (data.editing !== null) {
+    $projectName.value = data.editing.projectName;
+    $projectDetails.value = data.editing.projectDetails;
+    $projectDeadline.value = data.editing.projectDeadline;
+    setColorPalette(data.editing.colorPalette, $colorPalette);
+    setRgbCodes(data.editing.colorPalette, $newProjectRGBCode);
+    setGradient(data.editing.colorPalette, $paletteGradient);
+    $formTitle.textContent = 'Edit Project';
+    $formCheckmark.className = 'form-checkmark';
+    data.colorPalette = data.editing.colorPalette;
+    if (data.editing.completed === true) {
+      $formCheckmark.style.color = 'limegreen';
+      $formCompleted.style.color = '#03322f';
+    } else if (data.editing.completed === false) {
+      $formCheckmark.style.color = 'rgb(212, 209, 209)';
     }
+  }
+}
+
+function handleFormCompleted(event) {
+  if (data.editing.completed === false) {
+    data.editing.completed = true;
+    $formCheckmark.style.color = 'limegreen';
+    $formCompleted.style.color = '#03322f';
+  } else if (data.editing.completed === true) {
+    data.editing.completed = false;
+    $formCheckmark.style.color = 'rgb(212, 209, 209)';
+    $formCompleted.style.color = 'rgb(212, 209, 209)';
   }
 }
 
@@ -238,8 +312,8 @@ function handleCompleted(target, data) {
     data.completed = false;
     target.style.color = 'rgb(212, 209, 209)';
   }
-
 }
+
 function showProjectDetails(data) {
   $detailsModal.className = 'modal-background';
 
@@ -247,7 +321,7 @@ function showProjectDetails(data) {
   $detailsProjectTitle.textContent = data.projectName;
 
   var $detailsDate = document.querySelector('.due-date-modal');
-  $detailsDate.textContent = 'Deadline: ' + data.projectDeadline;
+  $detailsDate.textContent = 'Deadline: ' + convertDateFormat(data.projectDeadline);
 
   var $completed = document.querySelector('.completed');
   if (data.completed === true) {
@@ -269,11 +343,11 @@ function showProjectDetails(data) {
 
   var $detailsGradient = document.querySelector('.modal-gradient');
   setGradient(data.colorPalette, $detailsGradient);
-
 }
 
 function closeDetails(event) {
   $detailsModal.className = 'modal-background hidden';
+  data.editing = null;
 }
 
 function viewSwap(view) {
@@ -289,9 +363,17 @@ function viewSwap(view) {
 
 function handleNewClik(event) {
   getColors();
+  $formTitle.textContent = 'New Project';
+  $formCheckmark.className = ('form-checkmark hidden');
+  data.editing = null;
+  $projectEntryForm.reset();
   viewSwap('new-project-form');
 }
 
 function handleProjectsClick(event) {
   viewSwap('projects');
 }
+
+// when the user opens the modal, automatically assign that data to editing.
+// when they click the x, reset editing back to null
+// try the same for the completed option
