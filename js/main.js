@@ -116,6 +116,8 @@ function setGradient(paletteColors, element) {
 function saveProject(event) {
   event.preventDefault();
 
+  var $li = document.querySelectorAll('li');
+
   var projectNameInput = $projectEntryForm.elements.projectName.value;
   var projectDetailsInput = $projectEntryForm.elements.projectDetails.value;
   var projectDeadlineInput = $projectEntryForm.elements.projectDeadline.value;
@@ -125,16 +127,35 @@ function saveProject(event) {
     projectName: projectNameInput,
     projectDetails: projectDetailsInput,
     projectDeadline: projectDeadlineInput,
-    colorPalette: data.colorPalette,
-    completed: false
+    colorPalette: data.colorPalette
   };
-  newProjectEntry.entryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(newProjectEntry);
-  data.colorPalette = {};
 
-  var renderedProjectEntry = renderProjectEntry(newProjectEntry);
-  $projectsList.prepend(renderedProjectEntry);
+  if (data.editing !== null) {
+    newProjectEntry.completed = data.editing.completed;
+    newProjectEntry.entryId = data.editing.entryId;
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.editing.entryId === data.entries[i].entryId) {
+        data.entries[i] = newProjectEntry;
+      }
+    }
+    for (var a = 0; a < $li.length; a++) {
+      var entryId = $li[a].getAttribute('data-entry-id');
+      var dataEntryId = parseInt(entryId);
+      if (dataEntryId === data.editing.entryId) {
+        var createdProject = renderProjectEntry(newProjectEntry);
+        $li[a].replaceWith(createdProject);
+      }
+    }
+  } else {
+    newProjectEntry.completed = false;
+    newProjectEntry.entryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(newProjectEntry);
+    var renderedProjectEntry = renderProjectEntry(newProjectEntry);
+    $projectsList.prepend(renderedProjectEntry);
+  }
+
+  data.colorPalette = {};
   getColors('rrggbb');
   $projectEntryForm.reset();
   viewSwap('projects');
