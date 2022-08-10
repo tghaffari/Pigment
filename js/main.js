@@ -22,6 +22,7 @@ var $deleteButton = document.querySelector('.delete-button');
 var $cancelModal = document.querySelector('#cancel-modal');
 var $modalDeleteButton = document.querySelector('.modal-delete-button');
 var $modalNoButton = document.querySelector('.modal-no-button');
+var $modalCompleted = document.querySelector('.completed');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -36,7 +37,7 @@ $formCheckmark.addEventListener('click', handleFormCompleted);
 $deleteButton.addEventListener('click', handleDeleteButton);
 $modalDeleteButton.addEventListener('click', handleModalDeleteButton);
 $modalNoButton.addEventListener('click', handleModalNoButton);
-
+$modalCompleted.addEventListener('click', handleModalCompleted);
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
   data.colorPalette = {};
@@ -277,7 +278,6 @@ function handlePolaroidClicks(event) {
       }
     }
   }
-
 }
 
 function handleModalEdit() {
@@ -316,6 +316,18 @@ function handleFormCompleted(event) {
     data.editing.completed = false;
     $formCheckmark.style.color = 'rgb(212, 209, 209)';
     $formCompleted.style.color = 'rgb(212, 209, 209)';
+  }
+}
+
+function handleModalCompleted(event) {
+  if (data.editing.completed === false) {
+    data.editing.completed = true;
+    $modalCheckmark.style.color = 'limegreen';
+    $modalCompleted.style.color = '#03322f';
+  } else if (data.editing.completed === true) {
+    data.editing.completed = false;
+    $modalCheckmark.style.color = 'rgb(212, 209, 209)';
+    $modalCompleted.style.color = 'rgb(212, 209, 209)';
   }
 }
 
@@ -402,10 +414,18 @@ function handleModalDeleteButton(event) {
   for (var i = 0; i < data.entries.length; i++) {
     if (data.editing.entryId === data.entries[i].entryId) {
       data.entries.splice(i, 1);
+      break;
     }
   }
 
-  // var entries = document.querySelectorAll()
+  var entries = document.querySelectorAll('[data-entry-id]');
+
+  for (var x = 0; x < entries.length; x++) {
+    if (parseInt(entries[x].getAttribute('data-entry-id')) === data.editing.entryId) {
+      entries[x].remove();
+    }
+  }
+  data.editing = null;
   $cancelModal.className = 'modal-background hidden';
   viewSwap('projects');
 }
