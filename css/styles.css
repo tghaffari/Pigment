@@ -203,11 +203,6 @@ li {
   display: block;
 }
 
-.cenetered {
-  display: flex;
-  justify-content: center;
-}
-
 .polaroid-spacing {
   padding: 0;
 }
