@@ -203,11 +203,6 @@ li {
   display: block;
 }
 
-.cenetered {
-  display: flex;
-  justify-content: center;
-}
-
 .polaroid-spacing {
   padding: 0;
 }
@@ -407,8 +402,7 @@ a:hover,
   cursor: pointer;
 }
 
-.exit:hover,
-.ellipsis:hover {
+.exit:hover {
   box-shadow: 0 0 10px 3px rgba(56, 239, 227, 0.5);
 }
 
