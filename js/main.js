@@ -195,7 +195,7 @@ function renderProjectEntry(project) {
 
   var liElement = document.createElement('li');
   liElement.setAttribute('data-entry-id', project.entryId);
-  liElement.className = 'column-one-third polaroid-spacing';
+  liElement.className = 'column-one-third column-one-half polaroid-spacing';
 
   var backgroundDiv = document.createElement('div');
   backgroundDiv.className = 'polaroid-background';
