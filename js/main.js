@@ -38,6 +38,7 @@ $deleteButton.addEventListener('click', handleDeleteButton);
 $modalDeleteButton.addEventListener('click', handleModalDeleteButton);
 $modalNoButton.addEventListener('click', handleModalNoButton);
 $modalCompleted.addEventListener('click', handleModalCompleted);
+
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
   data.colorPalette = {};
@@ -373,6 +374,26 @@ function showProjectDetails(data) {
 }
 
 function closeDetails(event) {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      var index = i;
+      if (data.editing.completed === true) {
+        data.entries[i].completed = true;
+      } else if (data.editing.completed === false) {
+        data.entries[i].completed = false;
+      }
+    }
+  }
+
+  var entries = document.querySelectorAll('[data-entry-id]');
+
+  for (var x = 0; x < entries.length; x++) {
+    if (parseInt(entries[x].getAttribute('data-entry-id')) === data.editing.entryId) {
+      var updatedEntry = renderProjectEntry(data.entries[index]);
+      entries[x].replaceWith(updatedEntry);
+    }
+  }
+
   $detailsModal.className = 'modal-background hidden';
   data.editing = null;
 }
@@ -417,7 +438,6 @@ function handleModalDeleteButton(event) {
       break;
     }
   }
-
   var entries = document.querySelectorAll('[data-entry-id]');
 
   for (var x = 0; x < entries.length; x++) {
@@ -429,6 +449,3 @@ function handleModalDeleteButton(event) {
   $cancelModal.className = 'modal-background hidden';
   viewSwap('projects');
 }
-// when the user opens the modal, automatically assign that data to editing.
-// when they click the x, reset editing back to null
-// try the same for the completed option
