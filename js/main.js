@@ -18,6 +18,11 @@ var $formTitle = document.querySelector('.new-project-styling');
 var $modalEdit = document.querySelector('.modal-edit-icon');
 var $formCheckmark = document.querySelector('.form-checkmark');
 var $formCompleted = document.querySelector('.form-completed');
+var $deleteButton = document.querySelector('.delete-button');
+var $cancelModal = document.querySelector('#cancel-modal');
+var $modalDeleteButton = document.querySelector('.modal-delete-button');
+var $modalNoButton = document.querySelector('.modal-no-button');
+var $modalCompleted = document.querySelector('.completed');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -29,6 +34,10 @@ $newAnchor.addEventListener('click', handleNewClik);
 $projectsAnchor.addEventListener('click', handleProjectsClick);
 $modalEdit.addEventListener('click', handleModalEdit);
 $formCheckmark.addEventListener('click', handleFormCompleted);
+$deleteButton.addEventListener('click', handleDeleteButton);
+$modalDeleteButton.addEventListener('click', handleModalDeleteButton);
+$modalNoButton.addEventListener('click', handleModalNoButton);
+$modalCompleted.addEventListener('click', handleModalCompleted);
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
@@ -115,6 +124,7 @@ function setGradient(paletteColors, element) {
 
 function saveProject(event) {
   event.preventDefault();
+
   var $li = document.querySelectorAll('li');
 
   var projectNameInput = $projectEntryForm.elements.projectName.value;
@@ -177,7 +187,8 @@ function renderProjectEntry(project) {
   //        <i class="fa-solid fa-pencil polaroid-edit-icon"></i>
   //      </div>
   //     <p class="polaroid-date">Due: Deptember 2, 2022</p>
-  //     <p class="polaroid-checkmark">&#10004;</p>
+  //     <i class="polaroid-checkmark">&#10004;</i>
+  //     <br></br>
   //     <i class="fa-solid fa-ellipsis ellipsis"></i>
   //   </div>
   // </li>
@@ -217,7 +228,7 @@ function renderProjectEntry(project) {
   dateP.textContent = 'Deadline: ' + convertDateFormat(project.projectDeadline);
   backgroundDiv.appendChild(dateP);
 
-  var checkmark = document.createElement('p');
+  var checkmark = document.createElement('i');
   checkmark.className = 'polaroid-checkmark';
   checkmark.innerHTML = '&#10004;';
   if (project.completed === false) {
@@ -226,6 +237,9 @@ function renderProjectEntry(project) {
     checkmark.style.color = 'limegreen';
   }
   backgroundDiv.appendChild(checkmark);
+
+  var br = document.createElement('br');
+  backgroundDiv.appendChild(br);
 
   var ellipsisI = document.createElement('i');
   ellipsisI.className = 'fa-solid fa-ellipsis ellipsis';
@@ -240,6 +254,8 @@ function handleDomContentLoaded(event) {
     $projectsList.appendChild(newProject);
   }
   viewSwap(data.view);
+
+  $deleteButton.className = 'delete-button hidden';
 }
 
 function handlePolaroidClicks(event) {
@@ -263,7 +279,6 @@ function handlePolaroidClicks(event) {
       }
     }
   }
-
 }
 
 function handleModalEdit() {
@@ -282,6 +297,7 @@ function handleEdit() {
     setGradient(data.editing.colorPalette, $paletteGradient);
     $formTitle.textContent = 'Edit Project';
     $formCheckmark.className = 'form-checkmark';
+    $deleteButton.className = 'delete-button';
     data.colorPalette = data.editing.colorPalette;
     if (data.editing.completed === true) {
       $formCheckmark.style.color = 'limegreen';
@@ -301,6 +317,18 @@ function handleFormCompleted(event) {
     data.editing.completed = false;
     $formCheckmark.style.color = 'rgb(212, 209, 209)';
     $formCompleted.style.color = 'rgb(212, 209, 209)';
+  }
+}
+
+function handleModalCompleted(event) {
+  if (data.editing.completed === false) {
+    data.editing.completed = true;
+    $modalCheckmark.style.color = 'limegreen';
+    $modalCompleted.style.color = '#03322f';
+  } else if (data.editing.completed === true) {
+    data.editing.completed = false;
+    $modalCheckmark.style.color = 'rgb(212, 209, 209)';
+    $modalCompleted.style.color = 'rgb(212, 209, 209)';
   }
 }
 
@@ -346,6 +374,26 @@ function showProjectDetails(data) {
 }
 
 function closeDetails(event) {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.entries[i].entryId === data.editing.entryId) {
+      var index = i;
+      if (data.editing.completed === true) {
+        data.entries[i].completed = true;
+      } else if (data.editing.completed === false) {
+        data.entries[i].completed = false;
+      }
+    }
+  }
+
+  var entries = document.querySelectorAll('[data-entry-id]');
+
+  for (var x = 0; x < entries.length; x++) {
+    if (parseInt(entries[x].getAttribute('data-entry-id')) === data.editing.entryId) {
+      var updatedEntry = renderProjectEntry(data.entries[index]);
+      entries[x].replaceWith(updatedEntry);
+    }
+  }
+
   $detailsModal.className = 'modal-background hidden';
   data.editing = null;
 }
@@ -364,7 +412,8 @@ function viewSwap(view) {
 function handleNewClik(event) {
   getColors();
   $formTitle.textContent = 'New Project';
-  $formCheckmark.className = ('form-checkmark hidden');
+  $formCheckmark.className = 'form-checkmark hidden';
+  $deleteButton.className = 'delete-button hidden';
   data.editing = null;
   $projectEntryForm.reset();
   viewSwap('new-project-form');
@@ -374,6 +423,29 @@ function handleProjectsClick(event) {
   viewSwap('projects');
 }
 
-// when the user opens the modal, automatically assign that data to editing.
-// when they click the x, reset editing back to null
-// try the same for the completed option
+function handleDeleteButton(event) {
+  $cancelModal.className = 'modal-background';
+}
+
+function handleModalNoButton(event) {
+  $cancelModal.className = 'modal-background hidden';
+}
+
+function handleModalDeleteButton(event) {
+  for (var i = 0; i < data.entries.length; i++) {
+    if (data.editing.entryId === data.entries[i].entryId) {
+      data.entries.splice(i, 1);
+      break;
+    }
+  }
+  var entries = document.querySelectorAll('[data-entry-id]');
+
+  for (var x = 0; x < entries.length; x++) {
+    if (parseInt(entries[x].getAttribute('data-entry-id')) === data.editing.entryId) {
+      entries[x].remove();
+    }
+  }
+  data.editing = null;
+  $cancelModal.className = 'modal-background hidden';
+  viewSwap('projects');
+}

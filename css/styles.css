@@ -170,7 +170,10 @@
   vertical-align: middle;
 }
 
-.save-button {
+.save-button,
+.delete-button,
+.modal-delete-button,
+.modal-no-button {
   background-color: #03322f;
   color: white;
   font-family: Inter, sans-serif;
@@ -180,6 +183,11 @@
   height: 35px;
   width: 65px;
   margin-top: 15px;
+}
+
+.delete-button,
+.modal-delete-button {
+  background-color: #ee9e8d;
 }
 
 .justify-content-center {
@@ -211,7 +219,7 @@ li {
 .polaroid-background {
   background-color: white;
   width: 100%;
-  height: 275px;
+  height: 285px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   position: relative;
   padding: 15px 25px;
@@ -281,7 +289,6 @@ li {
   width: 100%;
   height: 33rem;
   margin: 0 15px;
-  overflow: scroll;
 }
 
 .exit {
@@ -291,7 +298,8 @@ li {
   left: 15px;
 }
 
-.modal-padding {
+.modal-padding,
+.delete-modal-padding {
   padding: 0 20px;
 }
 
@@ -362,6 +370,26 @@ li {
   padding: 5px 0;
 }
 
+.delete-modal-window {
+  border: none;
+  background-color: #f6fbf4;
+  width: 100%;
+  height: 13rem;
+  margin: 0 25px;
+}
+
+.delete-modal-text {
+  font-family: Inter, sans-serif;
+  color: #03322f;
+  text-align: center;
+  font-weight: 300;
+  padding: 10px 0;
+}
+
+.button-top-spacing {
+  padding-top: 15px;
+}
+
 a:hover,
 .new-palette-button:hover,
 .save-button:hover,
@@ -372,7 +400,10 @@ a:hover,
 .polaroid-edit-icon:hover,
 .form-checkmark,
 .form-completed,
-#color-search:hover {
+#color-search:hover,
+.delete-button,
+.modal-delete-button,
+.modal-no-button {
   cursor: pointer;
 }
 
@@ -483,5 +514,18 @@ a:hover,
 
   .form-completed {
     font-size: 18px;
+  }
+
+  .delete-modal-window {
+    height: 13rem;
+    width: 30%;
+  }
+
+  .button-top-spacing {
+    padding-top: 30px;
+  }
+
+  .delete-modal-padding {
+    padding: 0 30px;
   }
 }
