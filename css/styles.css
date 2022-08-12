@@ -141,6 +141,7 @@
 
 .palette-height {
   height: 90px;
+  position: relative;
 }
 
 .text-align-center {
@@ -298,7 +299,8 @@ li {
 }
 
 .modal-padding,
-.delete-modal-padding {
+.delete-modal-padding,
+.network-modal-padding {
   padding: 0 20px;
 }
 
@@ -390,6 +392,30 @@ li {
   padding-top: 15px;
 }
 
+.network-modal-window {
+  border: none;
+  background-color: #f6fbf4;
+  width: 100%;
+  height: 10rem;
+  margin: 0 25px;
+}
+
+.network-modal-text {
+  font-family: Inter, sans-serif;
+  color: #03322f;
+  font-size: 28px;
+  text-align: center;
+  font-weight: 300;
+  line-height: 45px;
+}
+
+.network-exit {
+  color: #03322f;
+  position: relative;
+  top: 10px;
+  left: 15px;
+}
+
 a:hover,
 .new-palette-button:hover,
 .save-button:hover,
@@ -403,11 +429,13 @@ a:hover,
 #color-search:hover,
 .delete-button,
 .modal-delete-button,
-.modal-no-button {
+.modal-no-button,
+.network-exit {
   cursor: pointer;
 }
 
-.exit:hover {
+.exit:hover,
+.network-exit:hover {
   box-shadow: 0 0 10px 3px rgba(56, 239, 227, 0.5);
 }
 
@@ -419,6 +447,89 @@ a:hover,
 .form-fields:focus {
   outline: none;
   border-color: rgb(56, 239, 227);
+}
+
+.lds-grid {
+  display: inline-block;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  top: 5px;
+  left: 132px;
+}
+
+.lds-grid div {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #f6fbf4;
+  animation: lds-grid 1.2s linear infinite;
+}
+
+.lds-grid div:nth-child(1) {
+  top: 8px;
+  left: 8px;
+  animation-delay: 0s;
+}
+
+.lds-grid div:nth-child(2) {
+  top: 8px;
+  left: 32px;
+  animation-delay: -0.4s;
+}
+
+.lds-grid div:nth-child(3) {
+  top: 8px;
+  left: 56px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(4) {
+  top: 32px;
+  left: 8px;
+  animation-delay: -0.4s;
+}
+
+.lds-grid div:nth-child(5) {
+  top: 32px;
+  left: 32px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(6) {
+  top: 32px;
+  left: 56px;
+  animation-delay: -1.2s;
+}
+
+.lds-grid div:nth-child(7) {
+  top: 56px;
+  left: 8px;
+  animation-delay: -0.8s;
+}
+
+.lds-grid div:nth-child(8) {
+  top: 56px;
+  left: 32px;
+  animation-delay: -1.2s;
+}
+
+.lds-grid div:nth-child(9) {
+  top: 56px;
+  left: 56px;
+  animation-delay: -1.6s;
+}
+
+@keyframes lds-grid {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -529,8 +640,21 @@ a:hover,
     padding-top: 30px;
   }
 
-  .delete-modal-padding {
+  .delete-modal-padding,
+  .network-modal-padding {
     padding: 0 30px;
+  }
+
+  .network-modal-window {
+    width: 50%;
+    height: 10rem;
+  }
+
+  .lds-grid {
+    width: 80px;
+    height: 80px;
+    top: 25%;
+    left: 43%;
   }
 }
 
@@ -551,5 +675,10 @@ a:hover,
   .delete-modal-window {
     height: 13rem;
     width: 30%;
+  }
+
+  .network-modal-window {
+    width: 30%;
+    height: 11rem;
   }
 }

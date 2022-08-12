@@ -23,6 +23,10 @@ var $cancelModal = document.querySelector('#cancel-modal');
 var $modalDeleteButton = document.querySelector('.modal-delete-button');
 var $modalNoButton = document.querySelector('.modal-no-button');
 var $modalCompleted = document.querySelector('.completed');
+var $loadingSpinnerTop = document.querySelector('#loading-spinner-top');
+var $loadingSpinnerBottom = document.querySelector('#loading-spinner-bottom');
+var $networkModal = document.querySelector('#network-modal');
+// var $networkExit = document.querySelector('.network-exit');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -47,6 +51,8 @@ function handleNewPaletteButtonClick(event) {
 }
 
 function getColors(rgb) {
+  $loadingSpinnerTop.className = 'row';
+  $loadingSpinnerBottom.className = 'row';
   var targetUrl = encodeURIComponent('http://colormind.io/api/');
   if (data.search === false) {
     var body = {
@@ -62,10 +68,18 @@ function getColors(rgb) {
   xhr.open('POST', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    data.colorPalette = xhr.response.result;
-    setColorPalette(data.colorPalette, $colorPalette);
-    setRgbCodes(data.colorPalette, $newProjectRGBCode);
-    setGradient(data.colorPalette, $paletteGradient);
+    if (xhr.status !== 200) {
+      $networkModal.className = 'modal-background';
+    } else {
+      $networkModal.className = 'modal-background hidden';
+      data.colorPalette = xhr.response.result;
+      $loadingSpinnerTop.className = 'row hidden';
+      $loadingSpinnerBottom.className = 'row hidden';
+      setColorPalette(data.colorPalette, $colorPalette);
+      setRgbCodes(data.colorPalette, $newProjectRGBCode);
+      setGradient(data.colorPalette, $paletteGradient);
+    }
+
   });
   xhr.send(JSON.stringify(body));
 }

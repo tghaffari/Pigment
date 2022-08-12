@@ -76,18 +76,52 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="column-full palette-height color-palette"></div>
-          </div>
-          <div class="row small-margin">
-            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
-            <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
-          </div>
-          <div class="row form-margin-bottom">
-            <div class="column-full palette-height palette-gradient"></div>
+          <div id="color-palette-section">
+            <div class="row">
+              <div class="column-full palette-height color-palette">
+                <div class="row hidden" id="loading-spinner-top">
+                  <div class="column-full">
+                    <div class="lds-grid">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row small-margin">
+              <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+              <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+              <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+              <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+              <div class="column-one-fifth rgb-code text-align-center" data-type="new-project-RGB-code"></div>
+            </div>
+            <div class="row form-margin-bottom">
+              <div class="column-full palette-height palette-gradient">
+                <div class="row hidden" id="loading-spinner-bottom">
+                  <div class="column-full">
+                    <div class="lds-grid">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="row form-margin-bottom justify-space-between">
             <div class="column-flex">
@@ -145,6 +179,15 @@
             <div class="column-flex">
               <button class="modal-no-button">NO</button>
             </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-background hidden" id="network-modal">
+        <div class="network-modal-window">
+          <i class="fa-solid fa-xmark network-exit"></i>
+          <div class="row network-modal-padding justify-content-center">
+            <h1 class="network-modal-text">Network Error.<br> Please try again later.</h1>
           </div>
         </div>
       </div>
