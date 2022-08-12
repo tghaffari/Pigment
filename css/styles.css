@@ -396,17 +396,17 @@ li {
   border: none;
   background-color: #f6fbf4;
   width: 100%;
-  height: 10rem;
+  height: 15rem;
   margin: 0 25px;
 }
 
 .network-modal-text {
   font-family: Inter, sans-serif;
   color: #03322f;
-  font-size: 28px;
+  font-size: 20px;
   text-align: center;
   font-weight: 300;
-  line-height: 45px;
+  line-height: 30px;
 }
 
 .network-exit {
@@ -414,6 +414,7 @@ li {
   position: relative;
   top: 10px;
   left: 15px;
+  align-self: flex-start;
 }
 
 a:hover,
@@ -647,7 +648,12 @@ a:hover,
 
   .network-modal-window {
     width: 50%;
-    height: 10rem;
+    height: 15rem;
+  }
+
+  .network-modal-text {
+    font-size: 24px;
+    line-height: 35px;
   }
 
   .lds-grid {
@@ -679,6 +685,6 @@ a:hover,
 
   .network-modal-window {
     width: 30%;
-    height: 11rem;
+    height: 15rem;
   }
 }

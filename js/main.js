@@ -26,7 +26,7 @@ var $modalCompleted = document.querySelector('.completed');
 var $loadingSpinnerTop = document.querySelector('#loading-spinner-top');
 var $loadingSpinnerBottom = document.querySelector('#loading-spinner-bottom');
 var $networkModal = document.querySelector('#network-modal');
-// var $networkExit = document.querySelector('.network-exit');
+var $networkExit = document.querySelector('.network-exit');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -42,6 +42,7 @@ $deleteButton.addEventListener('click', handleDeleteButton);
 $modalDeleteButton.addEventListener('click', handleModalDeleteButton);
 $modalNoButton.addEventListener('click', handleModalNoButton);
 $modalCompleted.addEventListener('click', handleModalCompleted);
+$networkExit.addEventListener('click', handleNetworkExitClick);
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
@@ -68,18 +69,16 @@ function getColors(rgb) {
   xhr.open('POST', 'https://lfz-cors.herokuapp.com/?url=' + targetUrl);
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
-    if (xhr.status !== 200) {
-      $networkModal.className = 'modal-background';
-    } else {
-      $networkModal.className = 'modal-background hidden';
-      data.colorPalette = xhr.response.result;
-      $loadingSpinnerTop.className = 'row hidden';
-      $loadingSpinnerBottom.className = 'row hidden';
-      setColorPalette(data.colorPalette, $colorPalette);
-      setRgbCodes(data.colorPalette, $newProjectRGBCode);
-      setGradient(data.colorPalette, $paletteGradient);
-    }
+    data.colorPalette = xhr.response.result;
+    $loadingSpinnerTop.className = 'row hidden';
+    $loadingSpinnerBottom.className = 'row hidden';
+    setColorPalette(data.colorPalette, $colorPalette);
+    setRgbCodes(data.colorPalette, $newProjectRGBCode);
+    setGradient(data.colorPalette, $paletteGradient);
 
+  });
+  xhr.addEventListener('error', function () {
+    $networkModal.className = 'modal-background';
   });
   xhr.send(JSON.stringify(body));
 }
@@ -462,4 +461,8 @@ function handleModalDeleteButton(event) {
   data.editing = null;
   $cancelModal.className = 'modal-background hidden';
   viewSwap('projects');
+}
+
+function handleNetworkExitClick(event) {
+  $networkModal.className = 'modal-background hidden';
 }
