@@ -23,6 +23,10 @@ var $cancelModal = document.querySelector('#cancel-modal');
 var $modalDeleteButton = document.querySelector('.modal-delete-button');
 var $modalNoButton = document.querySelector('.modal-no-button');
 var $modalCompleted = document.querySelector('.completed');
+var $loadingSpinnerTop = document.querySelector('#loading-spinner-top');
+var $loadingSpinnerBottom = document.querySelector('#loading-spinner-bottom');
+var $networkModal = document.querySelector('#network-modal');
+var $networkExit = document.querySelector('.network-exit');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -38,6 +42,7 @@ $deleteButton.addEventListener('click', handleDeleteButton);
 $modalDeleteButton.addEventListener('click', handleModalDeleteButton);
 $modalNoButton.addEventListener('click', handleModalNoButton);
 $modalCompleted.addEventListener('click', handleModalCompleted);
+$networkExit.addEventListener('click', handleNetworkExitClick);
 
 function handleNewPaletteButtonClick(event) {
   event.preventDefault();
@@ -47,6 +52,8 @@ function handleNewPaletteButtonClick(event) {
 }
 
 function getColors(rgb) {
+  $loadingSpinnerTop.className = 'row';
+  $loadingSpinnerBottom.className = 'row';
   var targetUrl = encodeURIComponent('http://colormind.io/api/');
   if (data.search === false) {
     var body = {
@@ -63,9 +70,15 @@ function getColors(rgb) {
   xhr.responseType = 'json';
   xhr.addEventListener('load', function () {
     data.colorPalette = xhr.response.result;
+    $loadingSpinnerTop.className = 'row hidden';
+    $loadingSpinnerBottom.className = 'row hidden';
     setColorPalette(data.colorPalette, $colorPalette);
     setRgbCodes(data.colorPalette, $newProjectRGBCode);
     setGradient(data.colorPalette, $paletteGradient);
+
+  });
+  xhr.addEventListener('error', function () {
+    $networkModal.className = 'modal-background';
   });
   xhr.send(JSON.stringify(body));
 }
@@ -195,7 +208,7 @@ function renderProjectEntry(project) {
 
   var liElement = document.createElement('li');
   liElement.setAttribute('data-entry-id', project.entryId);
-  liElement.className = 'column-one-third polaroid-spacing';
+  liElement.className = 'column-one-third column-one-half polaroid-spacing';
 
   var backgroundDiv = document.createElement('div');
   backgroundDiv.className = 'polaroid-background';
@@ -448,4 +461,8 @@ function handleModalDeleteButton(event) {
   data.editing = null;
   $cancelModal.className = 'modal-background hidden';
   viewSwap('projects');
+}
+
+function handleNetworkExitClick(event) {
+  $networkModal.className = 'modal-background hidden';
 }

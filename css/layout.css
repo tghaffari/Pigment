@@ -13,7 +13,7 @@
 }
 
 .column-full,
-.column-half,
+.column-one-half,
 .column-one-third {
   width: 100%;
 }
@@ -27,6 +27,21 @@
 }
 
 @media screen and (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+
+  .column-one-half,
+  .column-third {
+    width: 50%;
+  }
+
+  form {
+    margin: 0 10%;
+  }
+}
+
+@media screen and (min-width: 1280px) {
   .container {
     max-width: 1200px;
   }
