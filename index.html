@@ -3,15 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <meta property="og:title" content="Pigment">
   <meta property="og:description" content="An app for creators to organize color palettes and projects.">
-
   <meta property="og:image" content="https://thumbnails-photos.amazon.com/v1/thumbnail/tO5FOQMEQRyKVOwKvQ82Ww?viewBox=2000%2C1334&ownerId=A2C6964ZCBWB2K">
-
   <meta property="og:url" content="https://tghaffari.github.io/Pigment/">
   <meta name="twitter:card" content="summary_large_image">
-
   <title>Pigment</title>
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Overpass:wght@100;200;300;400&display=swap" rel="stylesheet">
@@ -53,21 +49,25 @@
           </div>
           <div class="row form-margin-bottom">
             <div class="column-full">
-              <input required class="form-fields" type="text" name="projectName" id="project-name"
-              placeholder="Project Name">
+              <label class="form-label">Project Name:
+                <input required class="form-fields" type="text" name="projectName" id="project-name"
+                placeholder="Enter project name here...">
+              </label>
             </div>
           </div>
           <div class="row form-margin-bottom">
             <div class="column-full">
-              <textarea required class="form-fields" name="projectDetails"
-              id="project-details" placeholder="Project Details"></textarea>
+              <label class="form-label">Project Details:
+                <textarea required class="form-fields" name="projectDetails" id="project-details"
+                placeholder="Enter details here..."></textarea>
+              </label>
             </div>
           </div>
           <div class="row form-margin-bottom align-items-center">
             <div class="column-flex">
-              <input required class="form-fields" type="text" name="projectDeadline"
-              id="project-deadline" placeholder="Project Deadline"
-              onfocus="(this.type='date')" onblur="(this.type='text')">
+              <label class="form-label" for="project-deadline">Project Deadline:</label>
+              <input required class="form-fields" type="date" name="projectDeadline"
+              id="project-deadline">
             </div>
             <div class="column-flex">
               <p class="form-checkmark hidden">&#10004;<span class="form-completed">Completed</span></p>
@@ -146,6 +146,7 @@
         <div class="row">
           <div class="column-full">
             <h1 class="projects-styling">PROJECTS</h1>
+            <p class="projects-paceholder-text text-align-center"> No projects have been saved. Click <b>+</b>New to start a new project today!</p>
           </div>
         </div>
         <ul class="projects-list polaroid-outside-margins row wrap">
@@ -156,8 +157,8 @@
             <div class="row modal-padding">
               <div class="column-full" >
                 <h1 class="project-title-modal">Project Title</h1>
-                <p class="due-date-modal">Deadline: Jan 1, 2001</p>
-                <p class="modal-checkmark">&#10004;<span class="completed">Completed</span></p>
+                <p class="due-date-modal">Deadline: Date</p>
+                <div class="click"><p class="modal-checkmark">&#10004;<span class="completed">Completed</span></p></div>
                 <h3 class="details-header-modal">Details:</h3>
                 <p class="project-details-modal">Project Details</p>
                 <h3 class="color-palette-modal-header">Color Palette:</h3>
@@ -191,7 +192,6 @@
           </div>
         </div>
       </div>
-
       <div class="modal-background hidden" id="network-modal">
         <div class="network-modal-window row align-items-center">
           <i class="fa-solid fa-xmark network-exit"></i>

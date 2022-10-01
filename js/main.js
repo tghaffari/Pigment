@@ -27,6 +27,7 @@ var $loadingSpinnerTop = document.querySelector('#loading-spinner-top');
 var $loadingSpinnerBottom = document.querySelector('#loading-spinner-bottom');
 var $networkModal = document.querySelector('#network-modal');
 var $networkExit = document.querySelector('.network-exit');
+var $projectsPlaceholderText = document.querySelector('.projects-paceholder-text');
 
 $newPaletteButton.addEventListener('click', handleNewPaletteButtonClick);
 $colorSearch.addEventListener('change', colorSearch);
@@ -41,7 +42,7 @@ $formCheckmark.addEventListener('click', handleFormCompleted);
 $deleteButton.addEventListener('click', handleDeleteButton);
 $modalDeleteButton.addEventListener('click', handleModalDeleteButton);
 $modalNoButton.addEventListener('click', handleModalNoButton);
-$modalCompleted.addEventListener('click', handleModalCompleted);
+$modalCheckmark.addEventListener('click', handleModalCompleted);
 $networkExit.addEventListener('click', handleNetworkExitClick);
 
 function handleNewPaletteButtonClick(event) {
@@ -176,6 +177,10 @@ function saveProject(event) {
     $projectsList.prepend(renderedProjectEntry);
   }
 
+  if (data.entries.length > 0) {
+    $projectsPlaceholderText.className = 'projects-paceholder-text text-align-center hidden';
+  }
+
   data.colorPalette = {};
   $projectEntryForm.reset();
   viewSwap('projects');
@@ -262,10 +267,14 @@ function renderProjectEntry(project) {
 }
 
 function handleDomContentLoaded(event) {
-  for (var i = 0; i < data.entries.length; i++) {
-    var newProject = renderProjectEntry(data.entries[i]);
-    $projectsList.appendChild(newProject);
+  if (data.entries.length > 0) {
+    $projectsPlaceholderText.className = 'projects-paceholder-text text-align-center hidden';
+    for (var i = 0; i < data.entries.length; i++) {
+      var newProject = renderProjectEntry(data.entries[i]);
+      $projectsList.appendChild(newProject);
+    }
   }
+
   viewSwap(data.view);
 
   $deleteButton.className = 'delete-button hidden';
@@ -461,6 +470,10 @@ function handleModalDeleteButton(event) {
   data.editing = null;
   $cancelModal.className = 'modal-background hidden';
   viewSwap('projects');
+  if (data.entries.length === 0) {
+    $projectsPlaceholderText.className = 'projects-paceholder-text text-align-center';
+  }
+
 }
 
 function handleNetworkExitClick(event) {
