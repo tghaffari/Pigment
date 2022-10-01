@@ -8,7 +8,7 @@
 }
 
 .header-row-padding {
-  padding: 15px 0 10px;
+  padding: 0.94rem 0.63rem;
 }
 
 .align-items-center {
@@ -21,7 +21,7 @@
 
 .logo-formatting {
   font-family: Overpass, sans-serif;
-  font-size: 28px;
+  font-size: 1.75rem;
   color: #68b0ab;
   font-weight: 200;
   letter-spacing: 2px;
@@ -30,15 +30,15 @@
 
 .plus-sign {
   color: #68b0ab;
-  font-size: 16px;
-  padding-right: 5px;
+  font-size: 1rem;
+  padding-right: 0.31rem;
 }
 
 .new-anchor,
 .projects-anchor {
   font-family: Inter, sans-serif;
   color: #68b0ab;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 200;
   vertical-align: middle;
   transition-property: color;
@@ -48,24 +48,33 @@
 .text-notebook-img {
   stroke: #68b0ab;
   height: 15px;
-  padding-left: 10px;
+  padding-left: 0.63rem;
   vertical-align: middle;
 }
 
 .new-project-styling,
 .projects-styling {
   font-family: "Bebas Neue", sans-serif;
-  font-size: 30px;
+  font-size: 1.85rem;
   letter-spacing: 2.5px;
   color: #03322f;
   text-align: center;
   font-weight: lighter;
 }
 
+.form-label {
+  font-family: Inter, sans-serif;
+  font-size: 1rem;
+  color: #03322f;
+  line-height: 35px;
+  font-weight: 200;
+  display: block;
+}
+
 .form-fields {
   background-color: rgba(189, 219, 217, 0.5);
   font-family: Inter, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   color: #03322f;
   border-style: solid;
   border-top: none;
@@ -74,46 +83,52 @@
   border-bottom: solid #03322f;
   border-radius: 4px 4px 0 0;
   border-width: 1px;
+  padding-left: 0.31rem;
 }
 
 #project-name {
   width: 100%;
   height: 30px;
-  margin-bottom: 5px;
+  margin-bottom: 0.3rem;
 }
 
 #project-details {
   width: 100%;
   height: 50px;
-  padding: 0;
   margin: 0;
+  vertical-align: top;
 }
 
 #project-deadline {
-  width: 100%;
+  width: 10rem;
   height: 30px;
+  margin-bottom: 1rem;
+}
+
+#project-deadline:invalid {
+  color: gray;
 }
 
 .form-checkmark {
   color: rgb(212, 209, 209);
-  margin-left: 25px;
-  font-size: 18px;
+  margin-left: 1.5rem;
+  font-size: 1.2rem;
 }
 
 .form-completed {
   color: rgb(212, 209, 209);
-  margin-left: 5px;
+  margin-left: 0.3rem;
   font-family: Inter, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
 }
 
 .form-margin-bottom {
-  margin-bottom: 15px;
+  margin-bottom: 0.8rem;
 }
 
 .color-palette-header {
   font-family: Inter, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   color: #03322f;
   margin-top: 0;
   margin-bottom: 0;
@@ -122,13 +137,13 @@
 .new-palette-button {
   background-color: rgba(189, 219, 217, 0.5);
   font-family: Inter, sans-serif;
-  font-size: 10px;
+  font-size: 0.63rem;
   color: #03322f;
   border-radius: 2px;
   border: none;
   width: 82px;
   height: 31px;
-  margin-right: 5px;
+  margin-right: 0.31rem;
 }
 
 .inline-block {
@@ -136,7 +151,7 @@
 }
 
 .small-margin {
-  margin-bottom: 10px;
+  margin-bottom: 0.63rem;
 }
 
 .palette-height {
@@ -150,9 +165,9 @@
 
 .rgb-code {
   font-family: Inter, sans-serif;
-  font-size: 8px;
+  font-size: 0.5rem;
   color: #03322f;
-  margin-top: 2px;
+  margin-top: 0.4rem;
 }
 
 .justify-end {
@@ -160,10 +175,10 @@
 }
 
 .search-label {
-  padding-left: 5px;
-  padding-right: 2px;
+  padding-left: 0.31rem;
+  padding-right: 0.13rem;
   border-radius: 4px 0 0;
-  font-size: 12px;
+  font-size: 0.75rem;
 }
 
 #color-search {
@@ -182,12 +197,12 @@
   background-color: #03322f;
   color: white;
   font-family: Inter, sans-serif;
-  font-size: 14px;
+  font-size: 0.88rem;
   border-radius: 2px;
   border: none;
   height: 35px;
   width: 65px;
-  margin-top: 15px;
+  margin-top: 0.9rem;
 }
 
 .delete-button,
@@ -199,8 +214,16 @@
   justify-content: center;
 }
 
+.projects-paceholder-text {
+  font-family: Inter, sans-serif;
+  color: #03322f;
+  font-weight: 200;
+  padding-top: 0.63rem;
+  letter-spacing: 0.5px;
+}
+
 li {
-  margin-bottom: 30px;
+  margin-bottom: 1.88rem;
 }
 
 .wrap {
@@ -213,7 +236,7 @@ li {
 }
 
 .polaroid-outside-margins {
-  margin: 0 12%;
+  margin: 0 2.3rem;
 }
 
 .polaroid-background {
@@ -222,14 +245,14 @@ li {
   height: 285px;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
   position: relative;
-  padding: 15px 25px;
-  margin: 0 0 30px;
+  padding: 0.94rem  1.56rem;
+  margin: 0 0 1.88rem;
 }
 
 .pin {
   color: #03322f;
   position: absolute;
-  font-size: 16px;
+  font-size: 1rem;
   transform: rotate(-30deg);
   left: -5px;
   top: -10px;
@@ -245,25 +268,25 @@ li {
 .polaroid-date {
   font-family: Inter, sans-serif;
   color: #03322f;
-  margin: 4px 0;
-  font-size: 14px;
+  margin: 0.25rem 0;
+  font-size: 0.88rem;
   font-weight: bold;
 }
 
 .polaroid-edit-icon {
-  margin-top: 4px;
+  margin-top: 0.25rem;
   color: #03322f;
 }
 
 .polaroid-date {
-  font-size: 11px;
+  font-size: 0.69rem;
   font-weight: normal;
-  margin-top: 2px;
+  margin-top: 0.13rem;
 }
 
 .polaroid-checkmark {
   color: rgb(212, 209, 209);
-  font-size: 20px;
+  font-size: 1.25rem;
 }
 
 .ellipsis {
@@ -287,7 +310,7 @@ li {
   background-color: #f6fbf4;
   width: 100%;
   height: 33rem;
-  margin: 0 15px;
+  margin: 0 0.94rem;
   overflow: overlay;
 }
 
@@ -301,20 +324,20 @@ li {
 .modal-padding,
 .delete-modal-padding,
 .network-modal-padding {
-  padding: 0 20px;
+  padding: 0 1.25rem;
 }
 
 .project-title-modal {
   color: #03322f;
   font-family: Inter, sans-serif;
   text-align: center;
-  margin: 20px 0 5px;
+  margin: 1.25rem 0 0.3rem;
 }
 
 .due-date-modal {
   color: #03322f;
   font-family: Inter, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 300;
   text-align: center;
   margin: 0;
@@ -323,37 +346,36 @@ li {
 .modal-checkmark {
   color: rgb(212, 209, 209);
   text-align: center;
-  margin: 2px 0;
-  font-size: 18px;
+  margin: 0.13rem 0;
+  font-size: 1.13rem;
 }
 
 .completed {
   font-family: Inter, sans-serif;
-  font-size: 16px;
-  margin-left: 5px;
+  font-size: 1rem;
+  margin-left: 0.31rem;
 }
 
 .modal-edit-icon {
-  margin-top: 15px;
+  margin: 0.94rem 0 0.63rem;
   color: #03322f;
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 0.13rem;
 }
 
 .details-header-modal,
 .color-palette-modal-header {
   color: #03322f;
   font-family: Inter, sans-serif;
-  font-size: 18px;
+  font-size: 1.13rem;
   font-weight: bold;
 }
 
 .project-details-modal {
   color: #03322f;
   font-family: Inter, sans-serif;
-  font-size: 16px;
+  font-size: 1rem;
   font-weight: 300;
-  margin-bottom: 20px;
+  margin-bottom: 1.25rem;
 }
 
 .modal-palette {
@@ -369,7 +391,7 @@ li {
 }
 
 .rgb-padding {
-  padding: 5px 0;
+  padding: 0.31rem 0;
 }
 
 .delete-modal-window {
@@ -377,7 +399,7 @@ li {
   background-color: #f6fbf4;
   width: 100%;
   height: 13rem;
-  margin: 0 25px;
+  margin: 0 1.56rem;
 }
 
 .delete-modal-text {
@@ -385,11 +407,11 @@ li {
   color: #03322f;
   text-align: center;
   font-weight: 300;
-  padding: 10px 0;
+  padding: 0.63rem 0;
 }
 
 .button-top-spacing {
-  padding-top: 15px;
+  padding-top: 0.94rem;
 }
 
 .network-modal-window {
@@ -397,13 +419,13 @@ li {
   background-color: #f6fbf4;
   width: 100%;
   height: 15rem;
-  margin: 0 25px;
+  margin: 0 1.56rem;
 }
 
 .network-modal-text {
   font-family: Inter, sans-serif;
   color: #03322f;
-  font-size: 20px;
+  font-size: 1.25rem;
   text-align: center;
   font-weight: 300;
   line-height: 30px;
@@ -425,13 +447,14 @@ a:hover,
 .polaroid-checkmark:hover,
 .modal-edit-icon:hover,
 .polaroid-edit-icon:hover,
-.form-checkmark,
-.form-completed,
+.form-checkmark:hover,
+.form-completed:hover,
 #color-search:hover,
-.delete-button,
-.modal-delete-button,
-.modal-no-button,
-.network-exit {
+.delete-button:hover,
+.modal-delete-button:hover,
+.modal-no-button:hover,
+.network-exit:hover,
+.modal-checkmark:hover {
   cursor: pointer;
 }
 
@@ -535,7 +558,7 @@ a:hover,
 
 @media screen and (min-width: 768px) {
   .color-palette-header {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .palette-height {
@@ -546,15 +569,15 @@ a:hover,
     width: 120px;
     height: 30px;
     font-size: 12px;
-    margin-right: 20px;
+    margin-right: 1.25rem;
   }
 
   .rgb-code {
-    font-size: 12px;
+    font-size: 0.75rem;
   }
 
   .search-label {
-    font-size: 14px;
+    font-size: 0.88rem;
   }
 
   #color-search {
@@ -562,7 +585,7 @@ a:hover,
   }
 
   .form-margin-bottom {
-    margin-bottom: 30px;
+    margin-bottom: 1.88rem;
   }
 
   .polaroid-outside-margins {
@@ -582,24 +605,24 @@ a:hover,
 
   .polaroid-background {
     width: 100%;
-    height: 320px;
+    height: 20rem;
   }
 
   .polaroid-spacing {
-    padding: 0 20px;
+    padding: 0 1.25rem;
   }
 
   .polaroid-title {
-    font-size: 16px;
+    font-size: 1rem;
   }
 
   .polaroid-date {
-    font-size: 12px;
-    margin-bottom: 10px;
+    font-size: 0.75rem;
+    margin-bottom: 0.63rem;
   }
 
   .ellipsis {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .modal-window {
@@ -620,16 +643,16 @@ a:hover,
   }
 
   .modal-edit-icon {
-    margin-top: 25px;
-    font-size: 22px;
+    margin-top: 1.56rem;
+    font-size: 1.38rem;
   }
 
   .form-checkmark {
-    font-size: 20px;
+    font-size: 1.25rem;
   }
 
   .form-completed {
-    font-size: 18px;
+    font-size: 1.13rem;
   }
 
   .delete-modal-window {
@@ -652,7 +675,7 @@ a:hover,
   }
 
   .network-modal-text {
-    font-size: 24px;
+    font-size: 1.5rem;
     line-height: 35px;
   }
 
@@ -662,29 +685,29 @@ a:hover,
     top: 25%;
     left: 43%;
   }
-}
 
-@media screen and (min-width: 1280px) {
-  .polaroid-spacing {
-    padding: 0 12px;
-  }
+  @media screen and (min-width: 1280px) {
+    .polaroid-spacing {
+      padding: 0 1.44rem;
+    }
 
-  .polaroid-title {
-    font-size: 18px;
-  }
+    .polaroid-title {
+      font-size: 1.13rem;
+    }
 
-  .modal-window {
-    height: 40rem;
-    width: 50%;
-  }
+    .modal-window {
+      height: 40rem;
+      width: 50%;
+    }
 
-  .delete-modal-window {
-    height: 13rem;
-    width: 30%;
-  }
+    .delete-modal-window {
+      height: 13rem;
+      width: 30%;
+    }
 
-  .network-modal-window {
-    width: 30%;
-    height: 15rem;
+    .network-modal-window {
+      width: 30%;
+      height: 15rem;
+    }
   }
 }
