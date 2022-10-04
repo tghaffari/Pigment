@@ -141,9 +141,10 @@
   color: #03322f;
   border-radius: 2px;
   border: none;
-  width: 82px;
+  width: 85px;
   height: 31px;
   margin-right: 0.31rem;
+  white-space: nowrap;
 }
 
 .inline-block {
@@ -200,9 +201,9 @@
   font-size: 0.88rem;
   border-radius: 2px;
   border: none;
-  height: 35px;
   width: 65px;
   margin-top: 0.9rem;
+  padding: 0.5rem 0;
 }
 
 .delete-button,
@@ -585,7 +586,7 @@ a:hover,
   }
 
   .form-margin-bottom {
-    margin-bottom: 1.88rem;
+    margin-bottom: 1rem;
   }
 
   .polaroid-outside-margins {
